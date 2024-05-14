@@ -75,22 +75,30 @@
             </ion-button>
           </div>
         </div>
-        <div class="dropdown-container" v-if="openDropdown">
-          <div class="dropdown">
-            <div v-for="item in listOfmusic" @click="select(item.name)">
-              <div class="controls" v-if="!item.is_selected.value">
-                <ion-button fill="clear">
-                  <ion-icon
-                    class="dropdown-button"
-                    slot="icon-only"
-                    :icon="playOutline"
-                  ></ion-icon>
-                </ion-button>
-                <p class="music-name">{{ item.name }}</p>
+        <ion-popover
+          :show-backdrop="false"
+          :is-open="openDropdown"
+          @didDismiss="openDropdown = false"
+        >
+          <ion-content class="p-4">
+            <div class="dropdown-container">
+              <div class="dropdown">
+                <div v-for="item in listOfmusic" @click="select(item.name)">
+                  <div class="controls" v-if="!item.is_selected.value">
+                    <ion-button fill="clear">
+                      <ion-icon
+                        class="dropdown-button"
+                        slot="icon-only"
+                        :icon="playOutline"
+                      ></ion-icon>
+                    </ion-button>
+                    <p class="music-name">{{ item.name }}</p>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+          </ion-content>
+        </ion-popover>
       </div>
     </ion-content>
   </ion-page>
@@ -327,18 +335,6 @@ ion-icon {
   font-size: 25px;
 }
 
-.dropdown-container {
-  position: absolute;
-  top: -470px;
-  padding: 20px;
-  padding-left: 10px;
-  padding-right: 25px;
-  background-color: rgba(255, 255, 255, 0.108);
-  border-radius: 35px;
-  @media (max-width: 990px) {
-    top: 50px;
-  }
-}
 .dropdown {
   height: 410px;
   overflow: scroll;
@@ -347,5 +343,10 @@ ion-icon {
 
 ::-webkit-scrollbar {
   display: none;
+}
+
+ion-popover {
+  --width: 100%;
+  --offset-x: -3%;
 }
 </style>
