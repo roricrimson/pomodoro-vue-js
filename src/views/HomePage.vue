@@ -2,6 +2,10 @@
   <ion-page>
     <ion-content :fullscreen="true">
       <div class="timer">
+        <input type="number" v-model="Work_time" max="60" min="1" />
+        <input type="number" v-model="Break_time" max="20" min="1" />
+        <input type="number" v-model="Long_break_time" max="40" min="1" />
+
         <div class="flex">
           <div class="timer-btn">
             <ion-button
@@ -76,6 +80,7 @@
           </div>
         </div>
         <ion-popover
+          alignment="center"
           :show-backdrop="false"
           :is-open="openDropdown"
           @didDismiss="openDropdown = false"
@@ -100,12 +105,19 @@
           </ion-content>
         </ion-popover>
       </div>
+
+      <todolist />
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import { IonContent, IonPage, IonIcon, IonButton } from "@ionic/vue";
+import {
+  IonContent,
+  IonPage,
+  IonIcon,
+  IonButton,
+} from "@ionic/vue";
 import {
   playOutline,
   pauseOutline,
@@ -117,15 +129,18 @@ import { useCountDownTimer } from "@/composables/useCountDownTimer";
 import { useMusicPlayer } from "@/composables/useMusicPlayer";
 import Sound from "@/assets/audio/short-success-sound-glockenspiel-treasure-video-game-6346.mp3";
 import { computed, ref, watch } from "vue";
+import todolist from "../components/todolist.vue"
 
-const { start, stop, resume, dislapyTimer, status, reset } =
+const { start, stop, resume, dislapyTimer, status, reset, timer } =
   useCountDownTimer();
 
 const { toggleAudio, is_play, listOfmusic } = useMusicPlayer();
 
 const isBreak = ref(false);
 const numberOfWorkCount = ref(0);
-const WORK_TIME = 10;
+const Work_time = ref(20);
+const Break_time = ref(5);
+const Long_break_time = ref(10);
 const afterLongBreak = ref(false);
 const openDropdown = ref(false);
 const alarmSound = new Audio(Sound);
@@ -138,13 +153,13 @@ watch(status, (value) => {
     if (isBreak.value && numberOfWorkCount.value > 3) {
       alarmSound.play();
       setTimeout(() => {
-        start(20);
+        start(Long_break_time.value);
       }, 1000);
       afterLongBreak.value = true;
     } else if (isBreak.value) {
       alarmSound.play();
       setTimeout(() => {
-        start(5);
+        start(Break_time.value);
       }, 1000);
     }
   }
@@ -152,7 +167,7 @@ watch(status, (value) => {
 
 function startTimer() {
   if (!isBreak.value) {
-    start(10);
+    start(Work_time.value);
     numberOfWorkCount.value++;
     if (afterLongBreak.value) {
       numberOfWorkCount.value = 1;
@@ -165,7 +180,7 @@ function resetTimer() {
   if (!isBreak.value && !afterLongBreak.value) {
     numberOfWorkCount.value--;
   }
-  reset(WORK_TIME);
+  reset(Work_time.value);
 }
 
 function select(musicName: string) {
@@ -299,7 +314,7 @@ ion-content {
   }
 }
 
-ion-icon {
+.timer ion-icon,.audio-player ion-icon {
   color: white;
   font-size: 50px;
 }
@@ -346,7 +361,6 @@ ion-icon {
 }
 
 ion-popover {
-  --width: 100%;
-  --offset-x: -3%;
+  --width: calc(80%, 400px);
 }
 </style>

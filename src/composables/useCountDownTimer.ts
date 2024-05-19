@@ -1,7 +1,7 @@
 import { computed, ref } from "vue";
 
 export function useCountDownTimer() {
-  const timer = ref(10);
+  const timer = ref(20);
   const interval = ref<any>(undefined);
   const status = ref<"counting" | "stop" | "finished" | "reset">("reset");
 
@@ -51,5 +51,5 @@ export function useCountDownTimer() {
     status.value = "reset";
   }
 
-  return { start, stop, resume, dislapyTimer, status, reset };
+  return { start, stop, resume, dislapyTimer, status, reset ,timer};
 }
