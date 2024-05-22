@@ -2,10 +2,6 @@
   <ion-page>
     <ion-content :fullscreen="true">
       <div class="timer">
-        <input type="number" v-model="Work_time" max="60" min="1" />
-        <input type="number" v-model="Break_time" max="20" min="1" />
-        <input type="number" v-model="Long_break_time" max="40" min="1" />
-
         <div class="flex">
           <div class="timer-btn">
             <ion-button
@@ -50,7 +46,7 @@
           Long Break Time
         </p>
       </div>
-
+      <!-- 
       <div class="audio-player">
         <div v-for="item in listOfmusic">
           <div v-if="item.is_selected.value" class="controls">
@@ -104,20 +100,16 @@
             </div>
           </ion-content>
         </ion-popover>
-      </div>
+      </div> -->
 
+      <ambient />
       <todolist />
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
-import {
-  IonContent,
-  IonPage,
-  IonIcon,
-  IonButton,
-} from "@ionic/vue";
+import { IonContent, IonPage, IonIcon, IonButton } from "@ionic/vue";
 import {
   playOutline,
   pauseOutline,
@@ -126,15 +118,16 @@ import {
   chevronDownOutline,
 } from "ionicons/icons";
 import { useCountDownTimer } from "@/composables/useCountDownTimer";
-import { useMusicPlayer } from "@/composables/useMusicPlayer";
+// import { useMusicPlayer } from "@/composables/useMusicPlayer";
 import Sound from "@/assets/audio/short-success-sound-glockenspiel-treasure-video-game-6346.mp3";
 import { computed, ref, watch } from "vue";
-import todolist from "../components/todolist.vue"
+import todolist from "../components/TodoList.vue";
+import ambient from "../components/Ambient.vue";
 
 const { start, stop, resume, dislapyTimer, status, reset, timer } =
   useCountDownTimer();
 
-const { toggleAudio, is_play, listOfmusic } = useMusicPlayer();
+// const { toggleAudio, is_play, listOfmusic } = useMusicPlayer();
 
 const isBreak = ref(false);
 const numberOfWorkCount = ref(0);
@@ -142,7 +135,7 @@ const Work_time = ref(20);
 const Break_time = ref(5);
 const Long_break_time = ref(10);
 const afterLongBreak = ref(false);
-const openDropdown = ref(false);
+// const openDropdown = ref(false);
 const alarmSound = new Audio(Sound);
 
 watch(status, (value) => {
@@ -183,18 +176,18 @@ function resetTimer() {
   reset(Work_time.value);
 }
 
-function select(musicName: string) {
-  listOfmusic.forEach((element) => {
-    if (element.name === musicName) {
-      element.is_selected.value = true;
-    } else {
-      element.is_selected.value = false;
-      element.audio.pause();
-      is_play.value = false;
-    }
-  });
-  openDropdown.value = false;
-}
+// function select(musicName: string) {
+//   listOfmusic.forEach((element) => {
+//     if (element.name === musicName) {
+//       element.is_selected.value = true;
+//     } else {
+//       element.is_selected.value = false;
+//       element.audio.pause();
+//       is_play.value = false;
+//     }
+//   });
+//   openDropdown.value = false;
+// }
 </script>
 <style scoped>
 @import url("https://fonts.googleapis.com/css2?family=Londrina+Outline&family=Roboto:wght@100;300;400;500;700&display=swap");
@@ -314,7 +307,8 @@ ion-content {
   }
 }
 
-.timer ion-icon,.audio-player ion-icon {
+.timer ion-icon,
+.audio-player ion-icon {
   color: white;
   font-size: 50px;
 }

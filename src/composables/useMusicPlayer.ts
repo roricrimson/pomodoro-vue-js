@@ -1,4 +1,4 @@
-import { computed, ref } from "vue";
+import { Ref, computed, ref } from "vue";
 import Floater from "@/assets/audio/Floater.mp3";
 import Is_This_a_Movie from "@/assets/audio/Is This a Movie_.mp3";
 import Naturally_Essenced from "@/assets/audio/Naturally Essenced.mp3";
@@ -15,70 +15,55 @@ export function useMusicPlayer() {
     {
       audio: new Audio(Floater),
       name: "Floater - Auxjack",
-      is_selected: ref(true),
+      is_play: ref(false),
     },
     {
       audio: new Audio(Is_This_a_Movie),
       name: "Is This a Movie - Auxjack",
-      is_selected: ref(false),
+      is_play: ref(false),
     },
     {
       audio: new Audio(Naturally_Essenced),
       name: "Naturally Essenced - Auxjack",
-      is_selected: ref(false),
+      is_play: ref(false),
     },
     {
       audio: new Audio(Sereno),
       name: "Sereno - Auxjack",
-      is_selected: ref(false),
+      is_play: ref(false),
     },
     {
       audio: new Audio(Sunday_Scaries),
       name: "Sunday Scaries - Auxjack",
-      is_selected: ref(false),
+      is_play: ref(false),
     },
     {
       audio: new Audio(Sway_Sway),
       name: "Sway Sway - Auxjack",
-      is_selected: ref(false),
+      is_play: ref(false),
     },
     {
       audio: new Audio(Thankful),
       name: "Thankful - Auxjack",
-      is_selected: ref(false),
+      is_play: ref(false),
     },
     {
       audio: new Audio(The_Vault),
       name: "The Vault - Auxjack",
-      is_selected: ref(false),
+      is_play: ref(false),
     },
     {
       audio: new Audio(Welcome_to_My_Lofi),
       name: "Welcome to My Lofi - Auxjack",
-      is_selected: ref(false),
+      is_play: ref(false),
     },
     {
       audio: new Audio(locomotivate),
       name: "locomotivate - Auxjack",
-      is_selected: ref(false),
+      is_play: ref(false),
     },
   ];
-  const is_play = ref(false);
 
-  function toggleAudio(audio: HTMLAudioElement) {
-    console.log(audio.paused);
-    if (!audio.paused) {
-      audio.pause();
-      is_play.value = false;
-    } else {
-      audio.play();
-      is_play.value = true;
-    }
 
-    audio.onended = () => {
-      is_play.value = false;
-    };
-  }
-
-  return { toggleAudio, is_play, listOfmusic };
+  return { listOfmusic };
 }

@@ -13,7 +13,7 @@
 
         <input type="text" v-model="object.name" class="bg-white" />
         <ion-button fill="clear" @click="addToLocalStorage()"
-          ><ion-icon slot="icon-only" :icon="add"></ion-icon
+          ><ion-icon slot="icon-only" :icon="checkmark"></ion-icon
         ></ion-button>
         <ion-button fill="clear" @click="removeItem(object.id)"
           ><ion-icon slot="icon-only" :icon="close"></ion-icon
@@ -36,9 +36,10 @@ import {
   checkboxOutline,
   close,
   add,
+  checkmark,
   key,
 } from "ionicons/icons";
-import { computed, ref, watch } from "vue";
+import { computed, ref } from "vue";
 import { Preferences } from "@capacitor/preferences";
 
 const KEY = "TodoList";
