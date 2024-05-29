@@ -1,5 +1,5 @@
 <template>
-  <div class="todolist">
+  <div class="bg-[#CBD2DC] m-[25px] p-[30px]">
     <div v-for="object in todoList">
       <div>
         <ion-button fill="clear" @click="changeCheckBox(object.id)">
@@ -11,7 +11,7 @@
           <ion-icon slot="icon-only" :icon="checkboxOutline" v-else></ion-icon
         ></ion-button>
 
-        <input type="text" v-model="object.name" class="bg-white" />
+        <input type="text" v-model="object.name" class="bg-transparent" />
         <ion-button fill="clear" @click="addToLocalStorage()"
           ><ion-icon slot="icon-only" :icon="checkmark"></ion-icon
         ></ion-button>
@@ -21,7 +21,7 @@
       </div>
     </div>
     <div>
-      <input type="text" class="bg-white" v-model="notes" />
+      <input type="text" class="bg-transparent " v-model="notes" />
       <ion-button fill="clear" @click="addItem()"
         ><ion-icon slot="icon-only" :icon="add"></ion-icon
       ></ion-button>

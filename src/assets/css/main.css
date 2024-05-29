@@ -1,3 +1,13 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+  .timer-digits {
+    @apply text-[#9398b2] bg-white w-1/2 rounded-lg p-[9px] text-[50px] font-bold text-center;
+  }
+
+  .timer-status {
+    @apply text-white text-[20px] text-center mb-[50px];
+  }
+}
