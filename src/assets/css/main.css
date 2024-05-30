@@ -4,7 +4,7 @@
 
 @layer components {
   .timer-digits {
-    @apply text-[#9398b2] bg-white w-1/2 rounded-lg p-[9px] text-[50px] font-bold text-center;
+    @apply text-[#9398b2] bg-white w-1/2 rounded-3xl p-[9px] text-[50px] font-bold text-center ;
   }
 
   .timer-status {

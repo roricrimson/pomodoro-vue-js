@@ -1,11 +1,15 @@
 <template>
-  <div>
-    <input type="text" v-model="props.name" ref="gesture" />
+  <div class="flex" style="border-bottom: 1px solid black">
+    <input class="flex-1" type="text" v-model="props.name" ref="gesture" />
     <ion-button fill="clear" @click="emits('update')"
-      ><ion-icon slot="icon-only" :icon="checkmark"></ion-icon
+      ><ion-icon
+        class="text-black"
+        slot="icon-only"
+        :icon="checkmark"
+      ></ion-icon
     ></ion-button>
     <ion-button fill="clear" @click="emits('delete')"
-      ><ion-icon slot="icon-only" :icon="close"></ion-icon
+      ><ion-icon class="text-black" slot="icon-only" :icon="close"></ion-icon
     ></ion-button>
   </div>
 </template>
@@ -42,11 +46,18 @@ onMounted(() => {
 });
 </script>
 <style scoped>
-input{
-background-color: transparent;
+input {
+  background-color: transparent;
+}
+input:focus {
+  outline: none;
 }
 
-input[type="text"]{
+input[type="text"] {
   background-color: transparent;
+}
+ion-button {
+  --padding-end: 0;
+  --padding-start: 0;
 }
 </style>

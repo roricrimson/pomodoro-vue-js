@@ -3,14 +3,11 @@
     <div class="flex gap-[10px] mx-[25px] h-[50px]">
       <button
         @click="openDropdown = true"
-        class="basis-[80%] bg-[#F6C9D0] rounded-md shadow-[2px_2px_0px_1px_#8F97B0] border-white border"
+        class="bg-[#F6C9D0] flex-1 rounded-2xl highlights"
       >
         <ion-icon slot="icon-only" :icon="options"></ion-icon>
       </button>
-      <button
-        @click=""
-        class="basis-[20%] bg-[#DE79B1] rounded-md shadow-[2px_2px_0px_1px_#8F97B0] border border-white"
-      >
+      <button @click="" class="bg-[#DE79B1] px-3 rounded-2xl highlights">
         <ion-icon slot="icon-only" :icon="play"></ion-icon>
       </button>
     </div>
@@ -88,5 +85,10 @@ ion-popover {
 ion-icon {
   color: white;
   font-size: 35px;
+}
+.highlights {
+  border-top: 2px solid white;
+  border-left: 2px solid white;
+  box-shadow: 1px 3px 3px #683a5481;
 }
 </style>
