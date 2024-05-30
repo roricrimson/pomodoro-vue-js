@@ -2,12 +2,12 @@
   <div class="bg-[#CBD2DC] m-[25px] p-[30px]">
     <div v-for="item in todoList">
       <todoItem
-        @toggle-check="changeCheckBox(object.id)"
-        @delete="removeItem(object.id)"
+        @toggle-check="changeCheckBox(item.id)"
+        @delete="removeItem(item.id)"
         @update="addToLocalStorage()"
-        :id="object.id"
-        :name="object.name"
-        :checked="object.checked"
+        :id="item.id"
+        :name="item.name"
+        :checked="item.checked"
       />
     </div>
     <div>
