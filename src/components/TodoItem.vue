@@ -1,6 +1,6 @@
 <template>
   <div class="flex" style="border-bottom: 1px solid black">
-    <input class="flex-1" type="text" v-model="props.name" ref="gesture" />
+    <input class="flex-1" type="text" v-model="props.name" ref="gesture"/>
     <ion-button fill="clear" @click="emits('update')"
       ><ion-icon
         class="text-black"
@@ -44,6 +44,8 @@ onMounted(() => {
     swipe.enable();
   }
 });
+
+
 </script>
 <style scoped>
 input {

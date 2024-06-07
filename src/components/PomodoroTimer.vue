@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#9c7ebc] mx-[25px] mb-0 mt-[50px] p-[15px] rounded-3xl border-4 border-white">
+  <div class="bg-[#9c7ebc] mx-[25px] mb-0 mt-[50px] p-[15px] rounded-3xl border-4 border-white ">
     <p class="timer-status" v-if="!isBreak">Work Time</p>
     <p class="timer-status" v-if="isBreak && numberOfWorkCount <= 3">
       Break Time
@@ -73,8 +73,6 @@ const afterLongBreak = ref(false);
 const alarmSound = new Audio(Sound);
 
 watch(status, (value) => {
-  console.log(value);
-  console.log(isBreak.value);
   if (value === "finished") {
     isBreak.value = !isBreak.value;
     if (isBreak.value && numberOfWorkCount.value > 3) {

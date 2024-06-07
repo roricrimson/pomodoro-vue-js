@@ -16,10 +16,10 @@
         :checked="item.checked"
       />
     </div>
-    <div class="flex bg-pink-500 rounded-full py-1 px-4 mt-4 text-white">
-      <input type="text" class="bg-transparent flex-1" v-model="notes" />
+    <div style="border-bottom: 1px solid black">
+      <input type="text" v-model="notes" />
       <ion-button fill="clear" @click="addItem()"
-        ><ion-icon class="text-white" slot="icon-only" :icon="add"></ion-icon
+        ><ion-icon class="text-black" slot="icon-only" :icon="add"></ion-icon
       ></ion-button>
     </div>
   </div>
@@ -55,7 +55,6 @@ function addItem() {
     notes.value = "";
     addToLocalStorage();
   }
-  console.log(todoList.value);
 }
 
 function removeItem(id: number) {
@@ -70,7 +69,6 @@ function changeCheckBox(id: number) {
     }
   });
   addToLocalStorage();
-  console.log(todoList.value);
 }
 async function addToLocalStorage() {
   await Preferences.set({
@@ -85,7 +83,19 @@ async function addToLocalStorage() {
   border-left: 2px solid white;
   box-shadow: 1px 3px 3px #683a5481;
 }
+input {
+  background-color: transparent;
+}
+
 input:focus {
   outline: none;
+}
+
+input[type="text"] {
+  background-color: transparent;
+}
+ion-button {
+  --padding-end: 0;
+  --padding-start: 0;
 }
 </style>
