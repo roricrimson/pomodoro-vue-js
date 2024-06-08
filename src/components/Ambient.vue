@@ -1,17 +1,14 @@
 <template>
-  <div class="">
-    <div class="flex gap-[10px] mx-[25px] h-[50px]">
-      <button
+  <div class="w-[100%] flex justify-end">
+    <button
         @click="openDropdown = true"
-        class="bg-[#F6C9D0] flex-1 rounded-2xl highlights"
+        class="bg-[#F6C9D0] rounded-2xl highlights mr-[25px] ml-[100px] h-[50px] w-[100%]"
       >
         <ion-icon slot="icon-only" :icon="options"></ion-icon>
       </button>
-      <button class="bg-[#DE79B1] px-3 rounded-2xl highlights" @click="">
-        <ion-icon slot="icon-only" :icon="play"></ion-icon>
-        <ion-icon slot="icon-only" :icon="pause"></ion-icon>
-      </button>
-    </div>
+  </div>
+     
+
 
     <ion-popover
       alignment="center"
@@ -50,14 +47,13 @@
                 :pin="true"
                 :pin-formatter="pinFormatter"
                 @ionChange="changeVolume($event, item.audio)"
-                :value="100"
+                :value="50"
               ></ion-range>
             </div>
           </div>
         </div>
       </ion-content>
     </ion-popover>
-  </div>
 </template>
 
 <script setup lang="ts">
