@@ -1,59 +1,60 @@
 <template>
   <div class="w-[100%] flex justify-end">
     <button
-        @click="openDropdown = true"
-        class="bg-[#F6C9D0] rounded-2xl highlights mr-[25px] ml-[100px] h-[50px] w-[100%]"
-      >
-        <ion-icon slot="icon-only" :icon="options"></ion-icon>
-      </button>
-  </div>
-     
-
-
-    <ion-popover
-      alignment="center"
-      :show-backdrop="false"
-      :is-open="openDropdown"
-      @didDismiss="openDropdown = false"
+      @click="openDropdown = true"
+      class="bg-[#F6C9D0] rounded-2xl highlights mr-[25px] ml-[100px] h-[50px] w-[100%]"
     >
-      <ion-content>
-        <div class="bg-[#EAC9E2] relative highlights rounded-md">
+      <ion-icon slot="icon-only" :icon="options"></ion-icon>
+    </button>
+  </div>
 
-          <button
-            class="bg-[#DE79B1] p-2 rounded-3 highlights absolute right-1"
-            v-if="tempListOfMusic.length > 0"
-            @click="toggleAllAudio()"
-          >
-            <p class="text-[15px] text-white" v-if="isAllAudioPaused">Resume</p>
-            <p class="text-[15px] text-white" v-else>Pause All</p>
-          </button>
+  <ion-popover
+    alignment="center"
+    :show-backdrop="false"
+    :is-open="openDropdown"
+    @didDismiss="openDropdown = false"
+  >
+    <ion-content>
+      <div class="bg-[#EAC9E2] relative highlights rounded-md">
+        <button
+          class="bg-[#DE79B1] p-2 rounded-3 highlights absolute right-1"
+          v-if="tempListOfMusic.length > 0"
+          @click="toggleAllAudio()"
+        >
+          <p class="text-[15px] text-white" v-if="isAllAudioPaused">Resume</p>
+          <p class="text-[15px] text-white" v-else>Pause All</p>
+        </button>
 
-          <div v-for="item in listOfmusic">
-            <div class="flex items-center">
-              <p class=" text-[15px] text-white">{{ item.name }}</p>
-              <ion-button fill="clear" @click="toggleAudio(item)"
-                ><ion-icon
-                  slot="icon-only"
-                  :icon="play"
-                  v-if="!item.is_play"
-                ></ion-icon>
-                <ion-icon slot="icon-only" :icon="pause" v-else></ion-icon>
-              </ion-button>
-            </div>
-            <div class="flex">
-              <ion-icon slot="icon-only" :icon="volumeHigh" class="m-2"></ion-icon>
-              <ion-range
-                aria-label="Range with pin"
-                :pin="true"
-                :pin-formatter="pinFormatter"
-                @ionChange="changeVolume($event, item.audio)"
-                :value="50"
-              ></ion-range>
-            </div>
+        <div v-for="item in listOfmusic">
+          <div class="flex items-center">
+            <p class="text-[15px] text-white">{{ item.name }}</p>
+            <ion-button fill="clear" @click="toggleAudio(item)"
+              ><ion-icon
+                slot="icon-only"
+                :icon="play"
+                v-if="!item.is_play"
+              ></ion-icon>
+              <ion-icon slot="icon-only" :icon="pause" v-else></ion-icon>
+            </ion-button>
+          </div>
+          <div class="flex">
+            <ion-icon
+              slot="icon-only"
+              :icon="volumeHigh"
+              class="m-2"
+            ></ion-icon>
+            <ion-range
+              aria-label="Range with pin"
+              :pin="true"
+              :pin-formatter="pinFormatter"
+              @ionChange="changeVolume($event, item.audio)"
+              :value="50"
+            ></ion-range>
           </div>
         </div>
-      </ion-content>
-    </ion-popover>
+      </div>
+    </ion-content>
+  </ion-popover>
 </template>
 
 <script setup lang="ts">
@@ -64,7 +65,7 @@ import {
   IonContent,
   IonPopover,
 } from "@ionic/vue";
-import { play, pause, options ,volumeHigh} from "ionicons/icons";
+import { play, pause, options, volumeHigh } from "ionicons/icons";
 import { Ref, computed, ref, toValue } from "vue";
 import { useMusicPlayer } from "@/composables/useMusicPlayer";
 
@@ -126,6 +127,8 @@ function toggleAllAudio() {
 <style scoped>
 ion-popover {
   height: 400px;
+  margin-top: 100px;
+
 }
 
 ion-icon {

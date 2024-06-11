@@ -6,16 +6,16 @@
         class="block rounded-full flex-1 aspect-square border-4 border-indigo-900"
       ></span>
     </div>
-    <div v-for="item in todoList">
-      <todoItem
-        @toggle-check="changeCheckBox(item.id)"
-        @delete="removeItem(item.id)"
-        @update="addToLocalStorage()"
-        :id="item.id"
-        :name="item.name"
-        :checked="item.checked"
-      />
-    </div>
+    <todoItem
+      v-for="item in todoList"
+      @toggle-check="changeCheckBox(item.id)"
+      @delete="removeItem(item.id)"
+      @update="addToLocalStorage()"
+      :id="item.id"
+      :checked="item.checked"
+      :key="item.id"
+      v-model:name="item.name"
+    />
     <div style="border-bottom: 1px solid black">
       <input type="text" v-model="notes" />
       <ion-button fill="clear" @click="addItem()"
@@ -70,6 +70,7 @@ function changeCheckBox(id: number) {
   });
   addToLocalStorage();
 }
+
 async function addToLocalStorage() {
   await Preferences.set({
     key: KEY,
