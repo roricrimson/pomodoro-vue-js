@@ -29,14 +29,15 @@ import { computed, ref, watch } from "vue";
 import todolist from "../components/TodoList.vue";
 import ambient from "../components/Ambient.vue";
 import timer from "../components/Timer.vue";
+import confirmation_tone from "@/assets/audio/mixkit-confirmation-tone-2867.wav";
 
 const numberOfWorkCount = ref(0);
 const isBreak = ref(false);
 const isWork = ref(true);
 const isLongBreak = ref(false);
-const Work_time = ref(5000);
-const Break_time = ref(1000);
-const Long_break_time = ref(2000);
+const Work_time = ref(25 * 60 * 1000);
+const Break_time = ref(5 * 60 * 1000);
+const Long_break_time = ref(15 * 60 * 1000);
 
 const countTimer = computed(() => {
   if (isWork.value) {
@@ -48,8 +49,11 @@ const countTimer = computed(() => {
   }
 });
 
+const Break_time_sound =  new Audio(confirmation_tone)
+
 function updateProgress() {
   if (isWork.value) {
+    Break_time_sound.play();
     numberOfWorkCount.value++;
     if (numberOfWorkCount.value > 3) {
       isLongBreak.value = true;
@@ -60,10 +64,12 @@ function updateProgress() {
     }
     isWork.value = false;
   } else if (isBreak.value) {
+    Break_time_sound.play();
     isWork.value = true;
     isBreak.value = false;
     isLongBreak.value = false;
   } else if (isLongBreak.value) {
+    Break_time_sound.play();
     isWork.value = true;
     isBreak.value = false;
     isLongBreak.value = false;
@@ -87,7 +93,7 @@ ion-content {
 .sessions input[type="radio"] {
   appearance: none;
   background-color: transparent;
-  border: 1px solid white;
+  border: 2px solid white;
   width: 100%;
   height: 5px;
   border-radius: 10px;

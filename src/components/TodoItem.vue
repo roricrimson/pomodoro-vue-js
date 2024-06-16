@@ -11,23 +11,22 @@
     />
     <div class="flex w-[25%] items-end justify-end">
       <ion-button fill="clear" @click="emits('update')" v-if="isFocused"
-      ><ion-icon
-        class="text-black"
-        slot="icon-only"
-        :icon="checkmark"
-      ></ion-icon
-    ></ion-button>
-    <ion-button fill="clear" @click="emits('delete')"
-      ><ion-icon class="text-black" slot="icon-only" :icon="close"></ion-icon
-    ></ion-button>
+        ><ion-icon
+          class="text-black"
+          slot="icon-only"
+          :icon="checkmark"
+        ></ion-icon
+      ></ion-button>
+      <ion-button fill="clear" @click="emits('delete')"
+        ><ion-icon class="text-black" slot="icon-only" :icon="close"></ion-icon
+      ></ion-button>
     </div>
-    
 
-    <div class="absolute h-[2px] w-[75%] bg-black top-[50%] left-[-5px]" v-if="props.checked">
-
-</div>
+    <div
+      class="absolute h-[2px] bg-black top-[50%] left-[-5px] w-0 transition-all"
+      :class="{ checked: props.checked }"
+    ></div>
   </div>
-
 </template>
 <script setup lang="ts">
 import { IonIcon, IonButton, createGesture } from "@ionic/vue";
@@ -52,17 +51,15 @@ onMounted(() => {
       el: gesture.value,
       onMove: (ev) => {
         if (Math.sign(ev.deltaX) == 1) {
-          emits("toggleCheck", false);
-        } else if (Math.sign(ev.deltaX) == -1) {
           emits("toggleCheck", true);
+        } else if (Math.sign(ev.deltaX) == -1) {
+          emits("toggleCheck", false);
         }
         console.log(props.checked);
       },
       gestureName: "example",
     });
     swipe.enable();
-
-    
   }
 });
 </script>
@@ -80,5 +77,9 @@ input[type="text"] {
 ion-button {
   --padding-end: 0;
   --padding-start: 0;
+}
+
+.checked {
+  width: 75%;
 }
 </style>

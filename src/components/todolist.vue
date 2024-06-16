@@ -1,5 +1,5 @@
 <template>
-  <div class="bg-[#CBD2DC] m-[25px] p-[30px] rounded-3xl highlights relative">
+  <div class="bg-[#CBD2DC] m-[25px] mt-5 p-[30px] rounded-3xl highlights relative">
     <div class="spiral-pin absolute -top-[15px] left-0 right-0 flex gap-1 px-4">
       <span
         v-for="item in [1, 2, 3, 4, 5, 6, 7, 8, 9]"
@@ -8,7 +8,7 @@
     </div>
     <todoItem
       v-for="item in todoList"
-      @toggle-check="changeCheckBox(item.id)"
+      @toggle-check="changeCheckBox($event, item.id)"
       @delete="removeItem(item.id)"
       @update="addToLocalStorage()"
       :id="item.id"
@@ -17,7 +17,7 @@
       v-model:name="item.name"
     />
     <div style="border-bottom: 1px solid black">
-      <input type="text" v-model="notes" />
+      <input type="text" v-model="notes"  @keyup.enter="addItem()"/>
       <ion-button fill="clear" @click="addItem()"
         ><ion-icon class="text-black" slot="icon-only" :icon="add"></ion-icon
       ></ion-button>
@@ -62,10 +62,10 @@ function removeItem(id: number) {
   addToLocalStorage();
 }
 
-function changeCheckBox(id: number) {
+function changeCheckBox(isChecked: boolean, id: number) {
   todoList.value.forEach((i) => {
     if (i.id === id) {
-      i.checked = !i.checked;
+      i.checked = isChecked;
     }
   });
   addToLocalStorage();

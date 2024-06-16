@@ -15,18 +15,25 @@
     @didDismiss="openDropdown = false"
   >
     <ion-content>
-      <div class="bg-[#EAC9E2] relative highlights rounded-md">
-        <button
-          class="bg-[#DE79B1] p-2 rounded-3 highlights absolute right-1"
-          v-if="tempListOfMusic.length > 0"
-          @click="toggleAllAudio()"
-        >
-          <p class="text-[15px] text-white" v-if="isAllAudioPaused">Resume</p>
-          <p class="text-[15px] text-white" v-else>Pause All</p>
-        </button>
+      <div class="flex justify-between bg-[#EAC9E2]">
+        <div>
+          <button
+            class="bg-[#DE79B1] p-2 rounded-3 highlights"
+            v-if="tempListOfMusic.length > 0"
+            @click="toggleAllAudio()"
+          >
+            <p class="text-[12px] text-white" v-if="isAllAudioPaused">Resume</p>
+            <p class="text-[12px] text-white" v-else>Pause All</p>
+          </button>
+        </div>
 
-        <div v-for="item in listOfmusic">
-          <div class="flex items-center">
+        <button fill="clear" @click="openDropdown = false">
+          <ion-icon slot="icon-only" :icon="close"></ion-icon>
+        </button>
+      </div>
+      <div class="bg-[#EAC9E2]">
+        <div v-for="item in listOfAmbient">
+          <div class="flex items-center justify-between">
             <p class="text-[15px] text-white">{{ item.name }}</p>
             <ion-button fill="clear" @click="toggleAudio(item)"
               ><ion-icon
@@ -65,11 +72,11 @@ import {
   IonContent,
   IonPopover,
 } from "@ionic/vue";
-import { play, pause, options, volumeHigh } from "ionicons/icons";
-import { Ref, computed, ref, toValue } from "vue";
-import { useMusicPlayer } from "@/composables/useMusicPlayer";
+import { play, pause, options, volumeHigh, close } from "ionicons/icons";
+import { Ref, computed, ref, toValue, watch } from "vue";
+import { useAmbientList } from "@/composables/useAmbientList";
 
-const { listOfmusic } = useMusicPlayer();
+const { listOfAmbient } = useAmbientList();
 
 const openDropdown = ref(false);
 
@@ -79,13 +86,21 @@ const tempListOfMusic = ref(<any>[]);
 
 const isAllAudioPaused = computed(() => {
   var bool = true;
-  listOfmusic.value.forEach((e) => {
+  listOfAmbient.value.forEach((e) => {
     if (e.is_play) {
       bool = false;
       return;
     }
   });
   return bool;
+});
+
+listOfAmbient.value.forEach((e) => {
+  e.audio.addEventListener("ended", function () {
+    this.play();
+    console.log("run");
+  });
+  e.audio.volume = 0.5
 });
 
 function changeVolume(event: any, audio: any) {
@@ -96,10 +111,10 @@ function toggleAudio(object: any) {
   if (object.audio.paused) {
     if (isAllAudioPaused.value && tempListOfMusic.value.length > 0) {
       tempListOfMusic.value = [];
-      console.log(tempListOfMusic.value);
     }
     object.audio.play();
     object.is_play = true;
+    
     tempListOfMusic.value.push(object);
   } else {
     object.audio.pause();
@@ -112,7 +127,7 @@ function toggleAudio(object: any) {
 
 function toggleAllAudio() {
   if (!isAllAudioPaused.value) {
-    listOfmusic.value.forEach((e) => {
+    listOfAmbient.value.forEach((e) => {
       e.audio.pause();
       e.is_play = false;
     });
@@ -127,8 +142,15 @@ function toggleAllAudio() {
 <style scoped>
 ion-popover {
   height: 400px;
-  margin-top: 100px;
-
+  margin-top: 120px;
+}
+ion-popover::part(content) {
+  border-radius: 15px;
+  padding: 20px;
+  background-color: #eac9e2;
+  border-top: 2px solid white;
+  border-left: 2px solid white;
+  box-shadow: 1px 3px 3px #683a5481;
 }
 
 ion-icon {
@@ -146,6 +168,7 @@ ion-range {
   --pin-background: #d790af;
   --pin-color: #fff;
   padding: 0;
+  margin-right: 20px;
 }
 
 .highlights {
