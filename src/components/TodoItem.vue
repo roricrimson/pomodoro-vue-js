@@ -1,5 +1,5 @@
 <template>
-  <div class="flex relative" style="border-bottom: 1px solid black">
+  <div class="flex relative" style="border-bottom: 1px solid #828E80">
     <input
       class="w-[75%]"
       type="text"
@@ -8,22 +8,23 @@
       ref="gesture"
       @focus="isFocused = true"
       @blur="isFocused = false"
+      @keyup.enter="emits('toggleCheck')"
     />
     <div class="flex w-[25%] items-end justify-end">
       <ion-button fill="clear" @click="emits('update')" v-if="isFocused"
         ><ion-icon
-          class="text-black"
+          class="text-[#828E80]"
           slot="icon-only"
           :icon="checkmark"
         ></ion-icon
       ></ion-button>
       <ion-button fill="clear" @click="emits('delete')"
-        ><ion-icon class="text-black" slot="icon-only" :icon="close"></ion-icon
+        ><ion-icon class="text-[#828E80]" slot="icon-only" :icon="close"></ion-icon
       ></ion-button>
     </div>
 
     <div
-      class="absolute h-[2px] bg-black top-[50%] left-[-5px] w-0 transition-all"
+      class="absolute h-[2px] bg-[#828E80] top-[50%] left-[-5px] w-0 transition-all"
       :class="{ checked: props.checked }"
     ></div>
   </div>
@@ -66,6 +67,7 @@ onMounted(() => {
 <style scoped>
 input {
   background-color: transparent;
+  color: #828E80;
 }
 input:focus {
   outline: none;

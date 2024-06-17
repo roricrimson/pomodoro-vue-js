@@ -2,7 +2,7 @@
   <ion-page>
     <ion-content :fullscreen="true">
       <div
-        class="bg-[#9c7ebc] mx-[25px] mb-0 mt-[50px] p-[15px] rounded-3xl border-4 border-white"
+        class="bg-[#999C89] mx-[25px] mb-0 mt-[50px] p-[15px] rounded-3xl highlights"
       >
         <p class="timer-status" v-if="isWork">Work Time</p>
         <p class="timer-status" v-if="isBreak">Break Time</p>
@@ -79,7 +79,10 @@ function updateProgress() {
 </script>
 <style scoped>
 ion-content {
-  --background: #e2dbc9;
+  --background: #FCFEF3;
+}
+.highlights {
+  box-shadow: 1px 3px 3px #989E8E;
 }
 
 .sessions {
@@ -87,13 +90,14 @@ ion-content {
   display: flex;
   justify-content: center;
   align-items: center;
-  margin: 0 40px;
+  margin: 2px 40px;
+  margin-bottom: 5px;
 }
 
 .sessions input[type="radio"] {
   appearance: none;
   background-color: transparent;
-  border: 2px solid white;
+  border: 2px solid #828E80;
   width: 100%;
   height: 5px;
   border-radius: 10px;
@@ -101,6 +105,6 @@ ion-content {
 }
 
 .sessions input[type="radio"]:checked {
-  background-color: white;
+  background-color: #828E80;
 }
 </style>

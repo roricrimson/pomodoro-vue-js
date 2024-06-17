@@ -1,12 +1,19 @@
 <template>
-  <div class="flex content-center gap-[15px] w-[200px] relative">
-    <p class="timer-digits">{{ formatted.minutes }}</p>
-    <p class="timer-digits">{{ formatted.seconds }}</p>
+  <div class="flex  w-[200px] relative">
+    <div class="flex gap-[10px] items-center" v-if="elapsedTime === 0">
+      <p class="timer-digits">{{`${String(Math.floor(Math.floor(countTimer / 1000) / 60)).padStart(2, "0")}`}}</p>
+      <p class="timer-digits">{{ `${String(Math.floor(countTimer / 1000)% 60).padStart(2, "0")}` }}</p>
+    </div>
+    <div class="flex gap-[10px] items-center" v-else>
+      <p class="timer-digits">{{ formatted.minutes }}</p>
+      <p class="timer-digits">{{ formatted.seconds }}</p>
+    </div>
+
     <ion-button
       fill="clear"
       @click="resetTimer"
-      class="absolute left-48 bottom-0"
-      ><ion-icon slot="icon-only" :icon="refresh"></ion-icon
+      class="absolute -right-6 -bottom-2"
+      ><ion-icon slot="icon-only" :icon="refresh" style="font-size: 25px;"></ion-icon
     ></ion-button>
     <ion-button fill="clear" class="highlights" @click="startTimer" v-if="!isRunning"> 
       <ion-icon slot="icon-only" :icon="play"></ion-icon>
@@ -92,14 +99,12 @@ ion-icon {
 }
 
 .highlights {
-  background-color: #DE79B1;
-  border-radius: 10px;
+  background-color: #C6C8BA;
+  border-radius: 15px;
   height: 50px;
-  border-top: 2px solid white;
-  border-left: 2px solid white;
-  box-shadow: 1px 3px 3px #683a5481;
+  box-shadow: 1px 3px 3px #989E8E;
   position: absolute;
-  bottom: -100px;
-  left: -22px;
+  bottom: -102px;
+  left: -15px;
 }
 </style>

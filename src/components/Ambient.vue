@@ -2,12 +2,11 @@
   <div class="w-[100%] flex justify-end">
     <button
       @click="openDropdown = true"
-      class="bg-[#F6C9D0] rounded-2xl highlights mr-[25px] ml-[100px] h-[50px] w-[100%]"
+      class="bg-[#F5EEDE] rounded-2xl highlights mr-[30px] ml-[100px] h-[50px] w-[100%] text-[#C4C7B4]"
     >
-      <ion-icon slot="icon-only" :icon="options"></ion-icon>
+      Ambients
     </button>
   </div>
-
   <ion-popover
     alignment="center"
     :show-backdrop="false"
@@ -15,10 +14,10 @@
     @didDismiss="openDropdown = false"
   >
     <ion-content>
-      <div class="flex justify-between bg-[#EAC9E2]">
+      <div class="flex justify-between bg-[#F5EEDE]">
         <div>
           <button
-            class="bg-[#DE79B1] p-2 rounded-3 highlights"
+            class="bg-[#C4C7B4] p-2 rounded-3 highlights"
             v-if="tempListOfMusic.length > 0"
             @click="toggleAllAudio()"
           >
@@ -31,10 +30,10 @@
           <ion-icon slot="icon-only" :icon="close"></ion-icon>
         </button>
       </div>
-      <div class="bg-[#EAC9E2]">
+      <div class="bg-[#F5EEDE]">
         <div v-for="item in listOfAmbient">
           <div class="flex items-center justify-between">
-            <p class="text-[15px] text-white">{{ item.name }}</p>
+            <p class="text-[15px] text-[#C4C7B4]">{{ item.name }}</p>
             <ion-button fill="clear" @click="toggleAudio(item)"
               ><ion-icon
                 slot="icon-only"
@@ -147,33 +146,29 @@ ion-popover {
 ion-popover::part(content) {
   border-radius: 15px;
   padding: 20px;
-  background-color: #eac9e2;
-  border-top: 2px solid white;
-  border-left: 2px solid white;
-  box-shadow: 1px 3px 3px #683a5481;
+  background-color: #F5EEDE;
+  box-shadow: 1px 3px 3px #989E8E;
 }
 
 ion-icon {
-  color: white;
+  color: #C4C7B4;
   font-size: 25px;
 }
 
 ion-range {
-  --bar-background: white;
-  --bar-background-active: white;
+  --bar-background: #CAD7C5;
+  --bar-background-active: #C4C7B4;
   --bar-height: 3px;
   --bar-border-radius: 8px;
-  --knob-background: #d790af;
+  --knob-background: #C4C7B4;
   --knob-size: 25px;
-  --pin-background: #d790af;
+  --pin-background: #C4C7B4;
   --pin-color: #fff;
   padding: 0;
   margin-right: 20px;
 }
 
 .highlights {
-  border-top: 2px solid white;
-  border-left: 2px solid white;
-  box-shadow: 1px 3px 3px #683a5481;
+  box-shadow: 1px 3px 3px #989E8E;
 }
 </style>
