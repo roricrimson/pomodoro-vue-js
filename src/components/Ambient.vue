@@ -14,8 +14,11 @@
     @didDismiss="openDropdown = false"
   >
     <ion-content>
-      <div class="flex justify-between bg-[#F5EEDE]">
-        <div>
+      <div class="p-4 bg-[#F5EEDE] rounded-lg highlights-2 h-full">
+        <div class="flex justify-between">
+          <button fill="clear" @click="openDropdown = false">
+            <ion-icon slot="icon-only" :icon="close"></ion-icon>
+          </button>
           <button
             class="bg-[#C4C7B4] p-2 rounded-3 highlights"
             v-if="tempListOfMusic.length > 0"
@@ -25,37 +28,33 @@
             <p class="text-[12px] text-white" v-else>Pause All</p>
           </button>
         </div>
-
-        <button fill="clear" @click="openDropdown = false">
-          <ion-icon slot="icon-only" :icon="close"></ion-icon>
-        </button>
-      </div>
-      <div class="bg-[#F5EEDE]">
-        <div v-for="item in listOfAmbient">
-          <div class="flex items-center justify-between">
-            <p class="text-[15px] text-[#C4C7B4]">{{ item.name }}</p>
-            <ion-button fill="clear" @click="toggleAudio(item)"
-              ><ion-icon
+        <div class="rounded-lg">
+          <div v-for="item in listOfAmbient">
+            <div class="flex items-center justify-between">
+              <p class="text-[15px] text-[#C4C7B4]">{{ item.name }}</p>
+              <ion-button fill="clear" @click="toggleAudio(item)"
+                ><ion-icon
+                  slot="icon-only"
+                  :icon="play"
+                  v-if="!item.is_play"
+                ></ion-icon>
+                <ion-icon slot="icon-only" :icon="pause" v-else></ion-icon>
+              </ion-button>
+            </div>
+            <div class="flex">
+              <ion-icon
                 slot="icon-only"
-                :icon="play"
-                v-if="!item.is_play"
+                :icon="volumeHigh"
+                class="m-2"
               ></ion-icon>
-              <ion-icon slot="icon-only" :icon="pause" v-else></ion-icon>
-            </ion-button>
-          </div>
-          <div class="flex">
-            <ion-icon
-              slot="icon-only"
-              :icon="volumeHigh"
-              class="m-2"
-            ></ion-icon>
-            <ion-range
-              aria-label="Range with pin"
-              :pin="true"
-              :pin-formatter="pinFormatter"
-              @ionChange="changeVolume($event, item.audio)"
-              :value="50"
-            ></ion-range>
+              <ion-range
+                aria-label="Range with pin"
+                :pin="true"
+                :pin-formatter="pinFormatter"
+                @ionChange="changeVolume($event, item.audio)"
+                :value="50"
+              ></ion-range>
+            </div>
           </div>
         </div>
       </div>
@@ -99,7 +98,7 @@ listOfAmbient.value.forEach((e) => {
     this.play();
     console.log("run");
   });
-  e.audio.volume = 0.5
+  e.audio.volume = 0.5;
 });
 
 function changeVolume(event: any, audio: any) {
@@ -113,7 +112,7 @@ function toggleAudio(object: any) {
     }
     object.audio.play();
     object.is_play = true;
-    
+
     tempListOfMusic.value.push(object);
   } else {
     object.audio.pause();
@@ -140,35 +139,52 @@ function toggleAllAudio() {
 </script>
 <style scoped>
 ion-popover {
-  height: 400px;
-  margin-top: 120px;
+  --width: 90%;
+  --height: 100%;
+  --box-shadow: none;
 }
 ion-popover::part(content) {
-  border-radius: 15px;
-  padding: 20px;
-  background-color: #F5EEDE;
-  box-shadow: 1px 3px 3px #989E8E;
+  background-color: transparent;
+}
+ion-content {
+  --background: transparent;
+}
+ion-content::part(scroll) {
+  padding: 4px;
+  height: 100%;
 }
 
 ion-icon {
-  color: #C4C7B4;
+  color: #c4c7b4;
   font-size: 25px;
 }
 
 ion-range {
-  --bar-background: #CAD7C5;
-  --bar-background-active: #C4C7B4;
+  --bar-background: #cad7c5;
+  --bar-background-active: #c4c7b4;
   --bar-height: 3px;
   --bar-border-radius: 8px;
-  --knob-background: #C4C7B4;
+  --knob-background: #c4c7b4;
   --knob-size: 25px;
-  --pin-background: #C4C7B4;
+  --pin-background: #c4c7b4;
   --pin-color: #fff;
   padding: 0;
   margin-right: 20px;
 }
 
+.highlights-2 {
+  box-shadow: 1px 3px 3px #989e8e;
+}
 .highlights {
-  box-shadow: 1px 3px 3px #989E8E;
+  box-shadow: 1px 3px 3px #989e8e;
+}
+
+ion-range {
+  pointer-events: none;
+}
+
+ion-range::part(knob),
+ion-range::part(pin) {
+  pointer-events: auto;
 }
 </style>

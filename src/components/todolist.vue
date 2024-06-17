@@ -1,6 +1,6 @@
 <template>
   <div class="bg-[#CAD7C5] m-[30px] p-[30px] rounded-3xl highlights relative">
-    <div class="spiral-pin absolute -top-[15px] left-0 right-0 flex gap-1 px-4">
+    <div class="spiral-pin absolute -top-[11px] left-0 right-0 flex gap-1 px-4">
       <span
         v-for="item in [1, 2, 3, 4, 5, 6, 7, 8, 9]"
         class="block rounded-full flex-1 aspect-square border-4 border-[#828E80]"

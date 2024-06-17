@@ -1,30 +1,41 @@
 <template>
-  <div class="flex  w-[200px] relative">
-    <div class="flex gap-[10px] items-center" v-if="elapsedTime === 0">
-      <p class="timer-digits">{{`${String(Math.floor(Math.floor(countTimer / 1000) / 60)).padStart(2, "0")}`}}</p>
-      <p class="timer-digits">{{ `${String(Math.floor(countTimer / 1000)% 60).padStart(2, "0")}` }}</p>
+  <div class="flex relative">
+    <div class="flex gap-2 items-center" v-if="elapsedTime === 0">
+      <p class="timer-digits">
+        {{
+          `${String(Math.floor(Math.floor(countTimer / 1000) / 60)).padStart(
+            2,
+            "0"
+          )}`
+        }}
+      </p>
+      <p class="timer-digits">
+        {{ `${String(Math.floor(countTimer / 1000) % 60).padStart(2, "0")}` }}
+      </p>
     </div>
     <div class="flex gap-[10px] items-center" v-else>
       <p class="timer-digits">{{ formatted.minutes }}</p>
       <p class="timer-digits">{{ formatted.seconds }}</p>
     </div>
 
+    <div class="ms-auto self-end">
+      <button class="block leading-[0px]" @click="resetTimer">
+        <ion-icon class="text-xl" slot="icon-only" :icon="refresh"> </ion-icon>
+      </button>
+    </div>
     <ion-button
       fill="clear"
-      @click="resetTimer"
-      class="absolute -right-6 -bottom-2"
-      ><ion-icon slot="icon-only" :icon="refresh" style="font-size: 25px;"></ion-icon
-    ></ion-button>
-    <ion-button fill="clear" class="highlights" @click="startTimer" v-if="!isRunning"> 
+      class="highlights"
+      @click="startTimer"
+      v-if="!isRunning"
+    >
       <ion-icon slot="icon-only" :icon="play"></ion-icon>
     </ion-button>
     <ion-button fill="clear" class="highlights" @click="stopTimer" v-else
       ><ion-icon slot="icon-only" :icon="pause"></ion-icon
     ></ion-button>
   </div>
-  <div>
-    
-  </div>
+  <div></div>
 </template>
 
 <script setup lang="ts">
@@ -40,7 +51,7 @@ const props = withDefaults(defineProps<Props>(), {
 });
 const emit = defineEmits(["onCountDownEnd"]);
 
-const timer = ref<number | undefined>(undefined);
+const timer = ref<NodeJS.Timer | undefined>(undefined);
 const isRunning = ref(false);
 const elapsedTime = ref(0);
 const startTime = ref(0);
@@ -95,14 +106,13 @@ const formatted = computed(() => {
 ion-icon {
   color: white;
   font-size: 30px;
- 
 }
 
 .highlights {
-  background-color: #C6C8BA;
+  background-color: #c6c8ba;
   border-radius: 15px;
   height: 50px;
-  box-shadow: 1px 3px 3px #989E8E;
+  box-shadow: 1px 3px 3px #989e8e;
   position: absolute;
   bottom: -102px;
   left: -15px;
