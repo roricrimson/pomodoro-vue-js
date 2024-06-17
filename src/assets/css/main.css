@@ -6,8 +6,4 @@
   .timer-digits {
     @apply text-[#7F8579] bg-white rounded-2xl py-1 px-4 text-[40px] font-bold text-center w-[95px];
   }
-
-  .timer-status {
-    @apply text-white text-[20px] text-center mb-[70px];
-  }
 }

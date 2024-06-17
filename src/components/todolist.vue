@@ -1,8 +1,10 @@
 <template>
-  <div class="bg-[#CAD7C5] m-[30px] p-[30px] rounded-3xl highlights relative">
-    <div class="spiral-pin absolute -top-[11px] left-0 right-0 flex gap-1 px-4">
+  <div
+    class="bg-[#CAD7C5] m-4 mt-8 p-6 rounded-3xl shadow-md shadow-[#989E8E] relative"
+  >
+    <div class="spiral-pin absolute -top-[11px] left-0 right-0 flex gap-1 px-6">
       <span
-        v-for="item in [1, 2, 3, 4, 5, 6, 7, 8, 9]"
+        v-for="item in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12]"
         class="block rounded-full flex-1 aspect-square border-4 border-[#828E80]"
       ></span>
     </div>
@@ -16,7 +18,7 @@
       :key="item.id"
       v-model:name="item.name"
     />
-    <div style="border-bottom: 1px solid #828E80" class="flex justify-between">
+    <div style="border-bottom: 1px solid #828e80" class="flex justify-between">
       <input
         type="text"
         class="w-[75%]"
@@ -25,21 +27,25 @@
         placeholder="Tap to write"
       />
       <ion-button fill="clear" @click="addItem()"
-        ><ion-icon class="text-[#828E80]" slot="icon-only" :icon="add"></ion-icon
+        ><ion-icon
+          class="text-[#828E80]"
+          slot="icon-only"
+          :icon="add"
+        ></ion-icon
       ></ion-button>
     </div>
     <div
-      style="border-bottom: 1px solid #828E80"
+      style="border-bottom: 1px solid #828e80"
       class="w-[100%] h-11"
       v-if="todoList.length <= 2"
     ></div>
     <div
-      style="border-bottom: 1px solid #828E80"
+      style="border-bottom: 1px solid #828e80"
       class="w-[100%] h-11"
       v-if="todoList.length <= 1"
     ></div>
     <div
-      style="border-bottom: 1px solid #828E80"
+      style="border-bottom: 1px solid #828e80"
       class="w-[100%] h-11"
       v-if="todoList.length === 0"
     ></div>
@@ -100,22 +106,18 @@ async function addToLocalStorage() {
 }
 </script>
 <style scoped>
-.highlights {
-  box-shadow: 1px 3px 3px #989E8E;
-}
 input {
   background-color: transparent;
-  color: #828E80;
+  color: #828e80;
 }
 
 input:focus {
   outline: none;
 }
 input::placeholder {
-  color: #999C89;
+  color: #999c89;
   font-size: 15px;
 }
-
 
 input[type="text"] {
   background-color: transparent;

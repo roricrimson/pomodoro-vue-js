@@ -1,8 +1,23 @@
 <template>
-  <div class="w-[100%] flex justify-end">
+  <div class="w-[100%] flex gap-2 px-4">
+    <button
+      class="bg-[#c6c8ba] rounded-xl shadow-md shadow-[#989e8e] p-2 flex justify-center items-center"
+      @click="emit('onPlayClick')"
+    >
+      <ion-icon
+        v-if="showPlay"
+        class="text-white text-3xl"
+        :icon="play"
+      ></ion-icon>
+      <ion-icon
+        v-else
+        class="text-white text-3xl"
+        :icon="pause"
+      ></ion-icon>
+    </button>
     <button
       @click="openDropdown = true"
-      class="bg-[#F5EEDE] rounded-2xl highlights mr-[30px] ml-[100px] h-[50px] w-[100%] text-[#C4C7B4]"
+      class="bg-[#F5EEDE] rounded-xl w-[100%] text-[#C4C7B4] shadow-md shadow-[#989e8e] text-start font-semibold px-6"
     >
       Ambients
     </button>
@@ -14,10 +29,16 @@
     @didDismiss="openDropdown = false"
   >
     <ion-content>
-      <div class="p-4 bg-[#F5EEDE] rounded-lg highlights-2 h-full">
-        <div class="flex justify-between">
+      <div
+        class="p-4 bg-[#F5EEDE] rounded-3xl shadow-md shadow-[#989e8e] h-full"
+      >
+        <div class="flex justify-between mb-2">
           <button fill="clear" @click="openDropdown = false">
-            <ion-icon slot="icon-only" :icon="close"></ion-icon>
+            <ion-icon
+              class="text-[#c4c7b4] text-2xl"
+              slot="icon-only"
+              :icon="close"
+            ></ion-icon>
           </button>
           <button
             class="bg-[#C4C7B4] p-2 rounded-3 highlights"
@@ -34,18 +55,24 @@
               <p class="text-[15px] text-[#C4C7B4]">{{ item.name }}</p>
               <ion-button fill="clear" @click="toggleAudio(item)"
                 ><ion-icon
+                  class="text-[#c4c7b4] text-2xl"
                   slot="icon-only"
                   :icon="play"
                   v-if="!item.is_play"
                 ></ion-icon>
-                <ion-icon slot="icon-only" :icon="pause" v-else></ion-icon>
+                <ion-icon
+                  class="text-[#c4c7b4] text-2xl"
+                  slot="icon-only"
+                  :icon="pause"
+                  v-else
+                ></ion-icon>
               </ion-button>
             </div>
             <div class="flex">
               <ion-icon
                 slot="icon-only"
                 :icon="volumeHigh"
-                class="m-2"
+                class="m-2 text-[#c4c7b4] text-2xl"
               ></ion-icon>
               <ion-range
                 aria-label="Range with pin"
@@ -74,6 +101,8 @@ import { play, pause, options, volumeHigh, close } from "ionicons/icons";
 import { Ref, computed, ref, toValue, watch } from "vue";
 import { useAmbientList } from "@/composables/useAmbientList";
 
+const emit = defineEmits(['onPlayClick'])
+
 const { listOfAmbient } = useAmbientList();
 
 const openDropdown = ref(false);
@@ -81,6 +110,8 @@ const openDropdown = ref(false);
 const pinFormatter = ref((value: number) => `${value}%`);
 
 const tempListOfMusic = ref(<any>[]);
+
+const showPlay = ref(true);
 
 const isAllAudioPaused = computed(() => {
   var bool = true;
@@ -154,11 +185,6 @@ ion-content::part(scroll) {
   height: 100%;
 }
 
-ion-icon {
-  color: #c4c7b4;
-  font-size: 25px;
-}
-
 ion-range {
   --bar-background: #cad7c5;
   --bar-background-active: #c4c7b4;
@@ -170,13 +196,6 @@ ion-range {
   --pin-color: #fff;
   padding: 0;
   margin-right: 20px;
-}
-
-.highlights-2 {
-  box-shadow: 1px 3px 3px #989e8e;
-}
-.highlights {
-  box-shadow: 1px 3px 3px #989e8e;
 }
 
 ion-range {

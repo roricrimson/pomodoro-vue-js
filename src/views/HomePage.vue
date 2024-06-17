@@ -2,23 +2,43 @@
   <ion-page>
     <ion-content :fullscreen="true">
       <div
-        class="bg-[#999C89] mx-[25px] mb-0 mt-[50px] p-[15px] rounded-3xl highlights"
+        class="bg-[#999C89] mx-4 mb-0 mt-10 p-6 rounded-3xl shadow-md shadow-[#989e8e]"
       >
-        <p class="timer-status" v-if="isWork">Work Time</p>
-        <p class="timer-status" v-if="isBreak">Break Time</p>
-        <p class="timer-status" v-if="isLongBreak">Long Break Time</p>
+        <p class="text-white text-3xl it text-start mb-16">
+          {{ statusText }}
+        </p>
 
         <timer :count-timer="countTimer" @onCountDownEnd="updateProgress()" />
       </div>
-      
-      <div class="sessions">
-        <input type="radio" :checked="numberOfWorkCount > 0" disabled />
-        <input type="radio" :checked="numberOfWorkCount > 1" disabled />
-        <input type="radio" :checked="numberOfWorkCount > 2" disabled />
-        <input type="radio" :checked="numberOfWorkCount > 3" disabled />
+
+      <div class="flex gap-2 px-10 py-4">
+        <input
+          class="flex-1 appearance-none border-[3px] border-[#828e80] rounded-xl h-3 checked:bg-[#828e80]"
+          type="radio"
+          :checked="numberOfWorkCount > 0"
+          disabled
+        />
+        <input
+          class="flex-1 appearance-none border-[3px] border-[#828e80] rounded-xl h-3 checked:bg-[#828e80]"
+          type="radio"
+          :checked="numberOfWorkCount > 1"
+          disabled
+        />
+        <input
+          class="flex-1 appearance-none border-[3px] border-[#828e80] rounded-xl h-3 checked:bg-[#828e80]"
+          type="radio"
+          :checked="numberOfWorkCount > 2"
+          disabled
+        />
+        <input
+          class="flex-1 appearance-none border-[3px] border-[#828e80] rounded-xl h-3 checked:bg-[#828e80]"
+          type="radio"
+          :checked="numberOfWorkCount > 3"
+          disabled
+        />
       </div>
-      <ambient />
-      <todolist />
+      <Ambient @onPlayClick="onPlayClick" />
+      <TodoList />
     </ion-content>
   </ion-page>
 </template>
@@ -26,8 +46,8 @@
 <script setup lang="ts">
 import { IonContent, IonPage } from "@ionic/vue";
 import { computed, ref, watch } from "vue";
-import todolist from "../components/TodoList.vue";
-import ambient from "../components/Ambient.vue";
+import TodoList from "../components/TodoList.vue";
+import Ambient from "../components/Ambient.vue";
 import timer from "../components/Timer.vue";
 import confirmation_tone from "@/assets/audio/mixkit-confirmation-tone-2867.wav";
 
@@ -49,7 +69,20 @@ const countTimer = computed(() => {
   }
 });
 
-const Break_time_sound =  new Audio(confirmation_tone)
+const statusText = computed(() => {
+  if (isWork.value) {
+    return "Work Time";
+  }
+  if (isBreak.value) {
+    return "Break Time";
+  }
+  if (isLongBreak.value) {
+    return "Long Break Time";
+  }
+  return ""; // Default return value if none of the conditions are met
+});
+
+const Break_time_sound = new Audio(confirmation_tone);
 
 function updateProgress() {
   if (isWork.value) {
@@ -76,35 +109,18 @@ function updateProgress() {
     numberOfWorkCount.value = 0;
   }
 }
+
+function onPlayClick() {
+    console.log('here');
+    
+}
 </script>
 <style scoped>
 ion-content {
-  --background: #FCFEF3;
-}
-.highlights {
-  box-shadow: 1px 3px 3px #989E8E;
-}
-
-.sessions {
-  padding: 8px;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  margin: 2px 40px;
-  margin-bottom: 5px;
-}
-
-.sessions input[type="radio"] {
-  appearance: none;
-  background-color: transparent;
-  border: 2px solid #828E80;
-  width: 100%;
-  height: 5px;
-  border-radius: 10px;
-  margin: 3px;
+  --background: #fcfef3;
 }
 
 .sessions input[type="radio"]:checked {
-  background-color: #828E80;
+  background-color: #828e80;
 }
 </style>

@@ -23,7 +23,7 @@
         <ion-icon class="text-xl" slot="icon-only" :icon="refresh"> </ion-icon>
       </button>
     </div>
-    <ion-button
+    <!-- <ion-button
       fill="clear"
       class="highlights"
       @click="startTimer"
@@ -33,7 +33,7 @@
     </ion-button>
     <ion-button fill="clear" class="highlights" @click="stopTimer" v-else
       ><ion-icon slot="icon-only" :icon="pause"></ion-icon
-    ></ion-button>
+    ></ion-button> -->
   </div>
   <div></div>
 </template>
