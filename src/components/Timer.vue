@@ -1,5 +1,5 @@
 <template>
-  <div class="flex relative">
+  <div class="flex items-end relative">
     <div class="flex gap-2 items-center" v-if="elapsedTime === 0">
       <p class="timer-digits">
         {{
@@ -18,22 +18,20 @@
       <p class="timer-digits">{{ formatted.seconds }}</p>
     </div>
 
-    <div class="ms-auto self-end">
-      <button class="block leading-[0px]" @click="resetTimer">
-        <ion-icon class="text-xl" slot="icon-only" :icon="refresh"> </ion-icon>
+    <div class="ms-auto self-end flex flex-col gap-2">
+      <button class="block leading-[0px]" @click="resetTimer" v-if="!isRunning">
+        <ion-icon class="text-white text-2xl" slot="icon-only" :icon="refresh">
+        </ion-icon>
+      </button>
+      <button class="block leading-[0px]" @click="startTimer" v-if="!isRunning">
+        <ion-icon class="text-white text-2xl" slot="icon-only" :icon="play">
+        </ion-icon>
+      </button>
+      <button class="block leading-[0px]" @click="stopTimer" v-else>
+        <ion-icon class="text-white text-2xl" slot="icon-only" :icon="pause">
+        </ion-icon>
       </button>
     </div>
-    <!-- <ion-button
-      fill="clear"
-      class="highlights"
-      @click="startTimer"
-      v-if="!isRunning"
-    >
-      <ion-icon slot="icon-only" :icon="play"></ion-icon>
-    </ion-button>
-    <ion-button fill="clear" class="highlights" @click="stopTimer" v-else
-      ><ion-icon slot="icon-only" :icon="pause"></ion-icon
-    ></ion-button> -->
   </div>
   <div></div>
 </template>
@@ -103,11 +101,6 @@ const formatted = computed(() => {
 </script>
 
 <style scoped>
-ion-icon {
-  color: white;
-  font-size: 30px;
-}
-
 .highlights {
   background-color: #c6c8ba;
   border-radius: 15px;

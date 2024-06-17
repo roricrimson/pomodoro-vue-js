@@ -37,7 +37,7 @@
           disabled
         />
       </div>
-      <Ambient @onPlayClick="onPlayClick" />
+      <Ambient />
       <TodoList />
     </ion-content>
   </ion-page>
@@ -108,11 +108,6 @@ function updateProgress() {
     isLongBreak.value = false;
     numberOfWorkCount.value = 0;
   }
-}
-
-function onPlayClick() {
-    console.log('here');
-    
 }
 </script>
 <style scoped>

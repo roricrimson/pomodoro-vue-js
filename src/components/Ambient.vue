@@ -1,26 +1,27 @@
 <template>
   <div class="w-[100%] flex gap-2 px-4">
     <button
-      class="bg-[#c6c8ba] rounded-xl shadow-md shadow-[#989e8e] p-2 flex justify-center items-center"
-      @click="emit('onPlayClick')"
-    >
-      <ion-icon
-        v-if="showPlay"
-        class="text-white text-3xl"
-        :icon="play"
-      ></ion-icon>
-      <ion-icon
-        v-else
-        class="text-white text-3xl"
-        :icon="pause"
-      ></ion-icon>
-    </button>
-    <button
       @click="openDropdown = true"
-      class="bg-[#F5EEDE] rounded-xl w-[100%] text-[#C4C7B4] shadow-md shadow-[#989e8e] text-start font-semibold px-6"
+      class="bg-[#c6c8ba] rounded-xl shadow-md shadow-[#989e8e] p-2 flex justify-center items-center"
     >
-      Ambients
+      <ion-icon class="text-white text-3xl" :icon="options"></ion-icon>
     </button>
+    <div
+      class="bg-[#F5EEDE] rounded-xl w-[100%] text-[#C4C7B4] text-start font-semibold px-6"
+    >
+      <div :class="isAllAudioPaused ? 'loader' : 'loader animated'">
+        <span class="loader__element"></span>
+        <span class="loader__element"></span>
+        <span class="loader__element"></span>
+        <span class="loader__element"></span>
+        <span class="loader__element"></span>
+        <span class="loader__element"></span>
+        <span class="loader__element"></span>
+        <span class="loader__element"></span>
+        <span class="loader__element"></span>
+        <span class="loader__element"></span>
+      </div>
+    </div>
   </div>
   <ion-popover
     alignment="center"
@@ -101,8 +102,6 @@ import { play, pause, options, volumeHigh, close } from "ionicons/icons";
 import { Ref, computed, ref, toValue, watch } from "vue";
 import { useAmbientList } from "@/composables/useAmbientList";
 
-const emit = defineEmits(['onPlayClick'])
-
 const { listOfAmbient } = useAmbientList();
 
 const openDropdown = ref(false);
@@ -110,8 +109,6 @@ const openDropdown = ref(false);
 const pinFormatter = ref((value: number) => `${value}%`);
 
 const tempListOfMusic = ref(<any>[]);
-
-const showPlay = ref(true);
 
 const isAllAudioPaused = computed(() => {
   var bool = true;
@@ -168,6 +165,12 @@ function toggleAllAudio() {
   }
 }
 </script>
+<style>
+:root {
+  --point-color: #555;
+  --size: 5px;
+}
+</style>
 <style scoped>
 ion-popover {
   --width: 90%;
@@ -205,5 +208,59 @@ ion-range {
 ion-range::part(knob),
 ion-range::part(pin) {
   pointer-events: auto;
+}
+
+.loader {
+  overflow: hidden;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  align-content: center;
+  justify-content: center;
+  gap: 10px;
+  z-index: 100000;
+}
+
+.loader__element {
+  border-radius: 100%;
+  border: var(--size) solid var(--point-color);
+}
+.loader.animated .loader__element:nth-child(1) {
+  animation: preloader 0.6s ease-in-out alternate infinite;
+}
+.loader.animated .loader__element:nth-child(2) {
+  animation: preloader 0.6s ease-in-out alternate 0.2s infinite;
+}
+.loader.animated 
+.loader__element:nth-child(3) {
+  animation: preloader 0.6s ease-in-out alternate 0.4s infinite;
+}
+.loader.animated .loader__element:nth-child(4) {
+  animation: preloader 0.6s ease-in-out alternate 0.6s infinite;
+}
+.loader.animated .loader__element:nth-child(5) {
+  animation: preloader 0.6s ease-in-out alternate 0.8s infinite;
+}
+.loader.animated .loader__element:nth-child(6) {
+  animation: preloader 0.6s ease-in-out alternate 1s infinite;
+}
+.loader.animated .loader__element:nth-child(7) {
+  animation: preloader 0.6s ease-in-out alternate 1.2s infinite;
+}
+.loader.animated .loader__element:nth-child(8) {
+  animation: preloader 0.6s ease-in-out alternate 1.4s infinite;
+}
+.loader.animated .loader__element:nth-child(9) {
+  animation: preloader 0.6s ease-in-out alternate 1.6s infinite;
+}
+.loader.animated .loader__element:nth-child(10) {
+  animation: preloader 0.6s ease-in-out alternate 1.8s infinite;
+}
+
+@keyframes preloader {
+  100% {
+    transform: scale(2);
+  }
 }
 </style>
