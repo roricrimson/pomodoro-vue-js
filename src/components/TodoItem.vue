@@ -56,7 +56,6 @@ onMounted(() => {
         } else if (Math.sign(ev.deltaX) == -1) {
           emits("toggleCheck", false);
         }
-        console.log(props.checked);
       },
       gestureName: "example",
     });

@@ -12,34 +12,39 @@ export function useAmbientList() {
       audio: new Audio(Sunny_morning),
       name: "Sunny morning",
       is_play: false,
+      volume: 50,
     },
     {
       audio: new Audio(Light_rain),
       name: "Light rain",
       is_play: false,
+      volume: 50,
     },
     {
       audio: new Audio(Riverside),
       name: "Riverside",
       is_play: false,
+      volume: 50,
     },
     {
       audio: new Audio(Fireplace_crackling),
       name: "Fireplace_crackling",
       is_play: false,
+      volume: 50,
     },
     {
       audio: new Audio(Writing_on_blackboard),
       name: "Writing_on_blackboard",
       is_play: false,
+      volume: 50,
     },
     {
       audio: new Audio(Typing_on_keyboard),
       name: "Typing_on_keyboard",
       is_play: false,
+      volume: 50,
     },
-    
   ]);
 
-  return { listOfAmbient};
+  return { listOfAmbient };
 }

@@ -2,7 +2,7 @@
   <ion-page>
     <ion-content :fullscreen="true">
       <div
-        class="bg-[#999C89] mx-4 mb-0 mt-10 p-6 rounded-3xl shadow-md shadow-[#989e8e]"
+        class="bg-[#999C89] mx-4 mb-0 mt-10 p-5 rounded-3xl shadow-md shadow-[#989e8e]"
       >
         <p class="text-white text-3xl it text-start mb-16">
           {{ statusText }}

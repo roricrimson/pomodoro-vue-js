@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-[#CAD7C5] m-4 mt-8 p-6 rounded-3xl shadow-md shadow-[#989E8E] relative"
+    class="bg-[#CAD7C5] m-4 mt-8 p-6 pb-8 rounded-3xl shadow-md shadow-[#989E8E] relative"
   >
     <div class="spiral-pin absolute -top-[11px] left-0 right-0 flex gap-1 px-6">
       <span
@@ -34,6 +34,7 @@
         ></ion-icon
       ></ion-button>
     </div>
+
     <div
       style="border-bottom: 1px solid #828e80"
       class="w-[100%] h-11"

@@ -79,8 +79,8 @@
                 aria-label="Range with pin"
                 :pin="true"
                 :pin-formatter="pinFormatter"
-                @ionChange="changeVolume($event, item.audio)"
-                :value="50"
+                @ionChange="changeVolume($event, item)"
+                :value="item.volume"
               ></ion-range>
             </div>
           </div>
@@ -124,13 +124,13 @@ const isAllAudioPaused = computed(() => {
 listOfAmbient.value.forEach((e) => {
   e.audio.addEventListener("ended", function () {
     this.play();
-    console.log("run");
   });
   e.audio.volume = 0.5;
 });
 
-function changeVolume(event: any, audio: any) {
-  audio.volume = event.detail.value / 100;
+function changeVolume(event: any, object: any) {
+  object.volume = event.detail.value
+  object.audio.volume = object.volume / 100;
 }
 
 function toggleAudio(object: any) {
@@ -142,7 +142,7 @@ function toggleAudio(object: any) {
     object.is_play = true;
 
     tempListOfMusic.value.push(object);
-  } else {
+  } else if(object.audio.played) {
     object.audio.pause();
     object.is_play = false;
     tempListOfMusic.value = tempListOfMusic.value.filter(
@@ -167,7 +167,7 @@ function toggleAllAudio() {
 </script>
 <style>
 :root {
-  --point-color: #555;
+  --point-color: #999C89;
   --size: 5px;
 }
 </style>
