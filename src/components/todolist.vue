@@ -18,14 +18,17 @@
       :key="item.id"
       v-model:name="item.name"
     />
+
     <div style="border-bottom: 1px solid #828e80" class="flex justify-between">
-      <input
-        type="text"
-        class="w-[75%]"
+      <textarea
         v-model="notes"
+        @input="adjustHeight"
+        ref="autosizeTextarea"
+        rows="1"
         @keyup.enter="addItem()"
         placeholder="Tap to write"
-      />
+      ></textarea>
+
       <ion-button fill="clear" @click="addItem()"
         ><ion-icon
           class="text-[#828E80]"
@@ -56,7 +59,7 @@
 <script setup lang="ts">
 import { IonIcon, IonButton } from "@ionic/vue";
 import { add } from "ionicons/icons";
-import { computed, ref } from "vue";
+import { computed, ref, onMounted, toValue } from "vue";
 import { Preferences } from "@capacitor/preferences";
 import todoItem from "../components/TodoItem.vue";
 
@@ -65,12 +68,23 @@ const KEY = "TodoList";
 const todoList = ref<any[]>([]);
 
 const notes = ref("");
+
 load();
+
+onMounted(() => {
+  adjustHeight();
+});
 async function load() {
   const result = await Preferences.get({ key: KEY });
   if (result.value) {
     todoList.value = JSON.parse(result.value);
   }
+}
+const autosizeTextarea = ref<any>(null);
+function adjustHeight() {
+  const textarea = autosizeTextarea.value;
+  textarea.style.height = "auto";
+  textarea.style.height = `${textarea.scrollHeight}px`;
 }
 
 function addItem() {
@@ -104,25 +118,30 @@ async function addToLocalStorage() {
     key: KEY,
     value: JSON.stringify(todoList.value),
   });
+  console.log('run');
+  
 }
 </script>
 <style scoped>
-input {
+
+textarea {
   background-color: transparent;
   color: #828e80;
+  resize: none;
+  overflow: hidden;
+  min-height: 44px;
+  width: 75%;
+  padding: 10px 0;
 }
 
-input:focus {
+textarea:focus {
   outline: none;
 }
-input::placeholder {
+textarea::placeholder {
   color: #999c89;
   font-size: 15px;
 }
 
-input[type="text"] {
-  background-color: transparent;
-}
 ion-button {
   --padding-end: 0;
   --padding-start: 0;

@@ -1,17 +1,15 @@
 <template>
-  <div class="flex relative" style="border-bottom: 1px solid #828E80">
-    <input
-      class="w-[75%]"
-      type="text"
+  <div class="flex relative justify-between" style="border-bottom: 1px solid #828e80">
+    <!-- @input="" -->
+    <textarea
       :value="name"
-      @input="$emit('update:name', $event.target.value)"
+      @input="adjustHeight, $emit('update:name', $event.target.value) ,isInputChange = true"
       ref="gesture"
-      @focus="isFocused = true"
-      @blur="isFocused = false"
+      rows="1"
       @keyup.enter="emits('toggleCheck')"
-    />
-    <div class="flex w-[25%] items-end justify-end">
-      <ion-button fill="clear" @click="emits('update')" v-if="isFocused"
+    ></textarea>
+    <div class="flex w-[25%] justify-end">
+      <ion-button fill="clear" @click="emits('update'),isInputChange = false" v-if="isInputChange"
         ><ion-icon
           class="text-[#828E80]"
           slot="icon-only"
@@ -19,7 +17,11 @@
         ></ion-icon
       ></ion-button>
       <ion-button fill="clear" @click="emits('delete')"
-        ><ion-icon class="text-[#828E80]" slot="icon-only" :icon="close"></ion-icon
+        ><ion-icon
+          class="text-[#828E80]"
+          slot="icon-only"
+          :icon="close"
+        ></ion-icon
       ></ion-button>
     </div>
 
@@ -42,7 +44,7 @@ const emits = defineEmits(["toggleCheck", "update", "delete", "update:name"]);
 
 const gesture = ref<any>(null);
 
-const isFocused = ref(false);
+const isInputChange = ref(false);
 
 onMounted(() => {
   if (gesture.value) {
@@ -61,19 +63,28 @@ onMounted(() => {
     });
     swipe.enable();
   }
+  adjustHeight();
 });
+
+function adjustHeight() {
+  const textarea = gesture.value;
+  textarea.style.height = "auto";
+  textarea.style.height = `${textarea.scrollHeight}px`;
+}
 </script>
 <style scoped>
-input {
+textarea {
   background-color: transparent;
-  color: #828E80;
-}
-input:focus {
-  outline: none;
+  color: #828e80;
+  resize: none;
+  overflow: hidden;
+  min-height: 44px;
+  width: 75%;
+  padding: 10px 0;
 }
 
-input[type="text"] {
-  background-color: transparent;
+textarea:focus {
+  outline: none;
 }
 ion-button {
   --padding-end: 0;
