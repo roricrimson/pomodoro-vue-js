@@ -1,15 +1,21 @@
 <template>
-  <div class="flex relative justify-between" style="border-bottom: 1px solid #828e80">
+  <div
+    class="flex relative justify-between"
+    style="border-bottom: 1px solid #828e80"
+  >
     <!-- @input="" -->
     <textarea
       :value="name"
-      @input="adjustHeight, $emit('update:name', $event.target.value) ,isInputChange = true"
+      @input="adjustHeight($event)"
       ref="gesture"
       rows="1"
       @keyup.enter="emits('toggleCheck')"
     ></textarea>
     <div class="flex w-[25%] justify-end">
-      <ion-button fill="clear" @click="emits('update'),isInputChange = false" v-if="isInputChange"
+      <ion-button
+        fill="clear"
+        @click="emits('update'), (isInputChange = false)"
+        v-if="isInputChange"
         ><ion-icon
           class="text-[#828E80]"
           slot="icon-only"
@@ -62,14 +68,19 @@ onMounted(() => {
       gestureName: "example",
     });
     swipe.enable();
+    const textarea = gesture.value;
+    textarea.style.height = "auto";
+    textarea.style.height = `${textarea.scrollHeight}px`;
   }
-  adjustHeight();
 });
 
-function adjustHeight() {
+function adjustHeight(event: any) {
   const textarea = gesture.value;
   textarea.style.height = "auto";
   textarea.style.height = `${textarea.scrollHeight}px`;
+
+  emits("update:name", event.target.value);
+  isInputChange.value = true;
 }
 </script>
 <style scoped>

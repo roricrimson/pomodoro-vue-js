@@ -95,6 +95,8 @@ function addItem() {
       checked: false,
     });
     notes.value = "";
+    autosizeTextarea.value.style.height = `44px`;
+
     addToLocalStorage();
   }
 }
@@ -118,7 +120,6 @@ async function addToLocalStorage() {
     key: KEY,
     value: JSON.stringify(todoList.value),
   });
-  console.log('run');
   
 }
 </script>
