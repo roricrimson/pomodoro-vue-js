@@ -3,7 +3,7 @@
     <ion-content :fullscreen="true">
       <div class="flex flex-col" :class="{ 'h-full': !isKeyBoardVisible }">
         <div
-          class="mx-5 mb-0 mt-10 p-5 rounded-3xl shadow-md shadow-[#989e8e] background-image"
+          class="mx-5 mb-0 mt-10 p-5 rounded-3xl shadow-[2px_2px_3px_0_#989e8e] background-image"
         >
           <p class="text-white text-2xl it text-start mb-16 font-handjet">
             {{ statusText }}
@@ -14,25 +14,25 @@
 
         <div class="flex gap-2 px-10 py-4">
           <input
-            class="flex-1 appearance-none border-[3px] border-[#828e80] rounded-xl h-3 checked:bg-[#828e80]"
+            class="flex-1 appearance-none border-[3px] border-[#999C89] rounded-xl h-3 checked:bg-[#999C89]"
             type="radio"
             :checked="numberOfWorkCount > 0"
             disabled
           />
           <input
-            class="flex-1 appearance-none border-[3px] border-[#828e80] rounded-xl h-3 checked:bg-[#828e80]"
+            class="flex-1 appearance-none border-[3px] border-[#999C89] rounded-xl h-3 checked:bg-[#999C89]"
             type="radio"
             :checked="numberOfWorkCount > 1"
             disabled
           />
           <input
-            class="flex-1 appearance-none border-[3px] border-[#828e80] rounded-xl h-3 checked:bg-[#828e80]"
+            class="flex-1 appearance-none border-[3px] border-[#999C89] rounded-xl h-3 checked:bg-[#999C89]"
             type="radio"
             :checked="numberOfWorkCount > 2"
             disabled
           />
           <input
-            class="flex-1 appearance-none border-[3px] border-[#828e80] rounded-xl h-3 checked:bg-[#828e80]"
+            class="flex-1 appearance-none border-[3px] border-[#999C89] rounded-xl h-3 checked:bg-[#999C89]"
             type="radio"
             :checked="numberOfWorkCount > 3"
             disabled
@@ -139,7 +139,7 @@ ion-content::part(scroll) {
 }
 
 .sessions input[type="radio"]:checked {
-  background-color: #828e80;
+  background-color: #999C89;
 }
 
 .background-image {

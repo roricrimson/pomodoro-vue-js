@@ -1,13 +1,13 @@
 <template>
-  <div class="w-[100%] flex gap-2 px-5">
+  <div class="w-[100%]  flex gap-2 px-5  h-14">
     <button
       @click="openDropdown = true"
-      class="bg-[#c6c8ba] rounded-xl shadow-md shadow-[#989e8e] p-2 flex justify-center items-center"
+      class="bg-[#c6c8ba] rounded-xl shadow-[2px_2px_3px_0_#989e8e] p-2 flex justify-center items-center "
     >
       <ion-icon class="text-white text-3xl" :icon="options"></ion-icon>
     </button>
     <div
-      class="bg-[#F5EEDE] shadow-md shadow-[#989e8e]  rounded-xl w-[100%] text-[#C4C7B4] text-start font-semibold px-6"
+      class="bg-[#F5EEDE] shadow-[2px_2px_3px_0_#989e8e]  rounded-xl w-[100%] text-[#C4C7B4] text-start font-semibold px-6"
     >
       <div :class="isAllAudioPaused ? 'loader' : 'loader animated'">
         <span class="loader__element"></span>
@@ -31,7 +31,7 @@
   >
     <ion-content>
       <div
-        class="p-4 bg-[#F5EEDE] rounded-3xl shadow-md shadow-[#989e8e] h-full"
+        class="p-4 bg-[#F5EEDE] rounded-3xl shadow-[2px_2px_3px_0_#989e8e] h-full"
       >
         <div class="flex justify-between mb-2">
           <button fill="clear" @click="openDropdown = false">
