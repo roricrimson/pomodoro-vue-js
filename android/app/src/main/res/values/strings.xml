@@ -1,7 +1,0 @@
-<?xml version='1.0' encoding='utf-8'?>
-<resources>
-    <string name="app_name">Time Garden</string>
-    <string name="title_activity_main">Time Garden</string>
-    <string name="package_name">com.timegarden.app</string>
-    <string name="custom_url_scheme">com.timegarden.app</string>
-</resources>
