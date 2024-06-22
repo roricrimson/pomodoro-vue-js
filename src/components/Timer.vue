@@ -18,7 +18,7 @@
       <p class="timer-digits font-bold">{{ formatted.seconds }}</p>
     </div>
 
-    <div class="ms-auto self-end flex flex-row gap-1" v-auto-animate>
+    <div class="ms-auto self-end flex flex-row gap-1 relative" >
       <button class="block leading-[0px]" @click="resetTimer" v-if="!isRunning">
         <ion-icon class="text-white text-2xl bottom-1" slot="icon-only" :icon="refresh">
         </ion-icon>
@@ -101,7 +101,6 @@ const formatted = computed(() => {
 </script>
 
 <style scoped>
-
 .highlights {
   background-color: #c6c8ba;
   border-radius: 15px;

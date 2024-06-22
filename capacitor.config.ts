@@ -2,8 +2,8 @@ import { CapacitorConfig } from "@capacitor/cli";
 import { KeyboardResize, KeyboardStyle } from "@capacitor/keyboard";
 
 const config: CapacitorConfig = {
-  appId: "io.ionic.starter",
-  appName: "pomodoro",
+  appId: "com.timegarden.app",
+  appName: "Time Garden",
   webDir: "dist",
   server: {
     androidScheme: "https",
