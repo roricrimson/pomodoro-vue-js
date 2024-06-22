@@ -1,11 +1,11 @@
 <template>
   <div
-    class="bg-[#CAD7C5] m-5 mt-8 p-6 pb-8 rounded-3xl shadow-md shadow-[#989E8E] relative flex-1 h-0 flex flex-col"
+    class="bg-[#CAD7C5] m-5 mt-8 p-6 pb-8 pt-8 rounded-3xl shadow-md shadow-[#989E8E] relative flex-1 h-0 flex flex-col"
   >
     <div class="spiral-pin absolute -top-[11px] left-0 right-0 flex gap-1 px-6">
       <span
         v-for="item in [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 12]"
-        class="block rounded-full flex-1 aspect-square border-4 border-[#828E80]"
+        class="block rounded-full flex-1 aspect-square border-[3px] border-[#828E80]"
       ></span>
     </div>
     <form
@@ -38,7 +38,7 @@
         v-for="n in 5 - todoList.length"
         :key="n"
         style="border-bottom: 1px solid #828e80"
-        class="h-8"
+        class="h-10"
         v-if="todoList.length < 5"
       ></div>
     </div>

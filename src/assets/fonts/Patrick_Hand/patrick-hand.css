@@ -1,0 +1,23 @@
+@font-face {
+    font-family: 'Patrick Hand';
+    src: url('../assets/fonts/PatrickHand-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+}
+
+/* If you have other weights, you can add them like this */
+/* Bold weight (example, if available) */
+@font-face {
+    font-family: 'Patrick Hand';
+    src: url('../assets/fonts/PatrickHand-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+}
+
+/* Italic weight (example, if available) */
+@font-face {
+    font-family: 'Patrick Hand';
+    src: url('../assets/fonts/PatrickHand-Italic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+}

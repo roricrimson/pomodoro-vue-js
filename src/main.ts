@@ -6,6 +6,8 @@ import { IonicVue } from '@ionic/vue';
 import './assets/fonts/Raleway/raleway.css';
 import './assets/fonts/Orbitron/orbitron.css';
 import './assets/fonts/Playwrite_AU_NSW/playwrite.css'; 
+import './assets/fonts/Patrick_Hand/patrick-hand.css'; 
+import './assets/fonts/Handjet/handjet.css'; 
 import './assets/css/main.css';
 
 /* Core CSS required for Ionic components to work properly */

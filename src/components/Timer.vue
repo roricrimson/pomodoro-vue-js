@@ -20,7 +20,7 @@
 
     <div class="ms-auto self-end flex flex-col gap-2">
       <button class="block leading-[0px]" @click="resetTimer" v-if="!isRunning">
-        <ion-icon class="text-white text-2xl" slot="icon-only" :icon="refresh">
+        <ion-icon class="text-white text-2xl bottom-1" slot="icon-only" :icon="refresh">
         </ion-icon>
       </button>
       <button class="block leading-[0px]" @click="startTimer" v-if="!isRunning">
@@ -101,6 +101,7 @@ const formatted = computed(() => {
 </script>
 
 <style scoped>
+
 .highlights {
   background-color: #c6c8ba;
   border-radius: 15px;

@@ -3,9 +3,9 @@
     <ion-content :fullscreen="true">
       <div class="flex flex-col" :class="{ 'h-full': !isKeyBoardVisible }">
         <div
-          class="bg-[#999C89] mx-5 mb-0 mt-10 p-5 rounded-3xl shadow-md shadow-[#989e8e]"
+          class="mx-5 mb-0 mt-10 p-5 rounded-3xl shadow-md shadow-[#989e8e] background-image"
         >
-          <p class="text-white text-3xl it text-start mb-16 font-playwrite">
+          <p class="text-white text-3xl it text-start mb-16 font-handjet">
             {{ statusText }}
           </p>
 
@@ -140,5 +140,21 @@ ion-content::part(scroll) {
 
 .sessions input[type="radio"]:checked {
   background-color: #828e80;
+}
+
+.background-image {
+  background: url("@/assets/img/pomodoro-forest.png");
+  background-size: contain;
+  background-repeat: repeat-x; /* Ensures the image repeats horizontally */
+  animation: slide 10s linear infinite alternate;
+}
+
+@keyframes slide {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
 }
 </style>
