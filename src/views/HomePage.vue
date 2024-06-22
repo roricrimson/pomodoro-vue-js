@@ -1,55 +1,73 @@
 <template>
   <ion-page>
     <ion-content :fullscreen="true">
-      <div
-        class="bg-[#999C89] mx-5 mb-0 mt-10 p-5 rounded-3xl shadow-md shadow-[#989e8e]"
-      >
-        <p class="text-white text-3xl it text-start mb-16 font-playwrite">
-          {{ statusText }}
-        </p>
+      <div class="flex flex-col" :class="{ 'h-full': !isKeyBoardVisible }">
+        <div
+          class="bg-[#999C89] mx-5 mb-0 mt-10 p-5 rounded-3xl shadow-md shadow-[#989e8e]"
+        >
+          <p class="text-white text-3xl it text-start mb-16 font-playwrite">
+            {{ statusText }}
+          </p>
 
-        <timer :count-timer="countTimer" @onCountDownEnd="updateProgress()" />
-      </div>
+          <timer :count-timer="countTimer" @onCountDownEnd="updateProgress()" />
+        </div>
 
-      <div class="flex gap-2 px-10 py-4">
-        <input
-          class="flex-1 appearance-none border-[3px] border-[#828e80] rounded-xl h-3 checked:bg-[#828e80]"
-          type="radio"
-          :checked="numberOfWorkCount > 0"
-          disabled
-        />
-        <input
-          class="flex-1 appearance-none border-[3px] border-[#828e80] rounded-xl h-3 checked:bg-[#828e80]"
-          type="radio"
-          :checked="numberOfWorkCount > 1"
-          disabled
-        />
-        <input
-          class="flex-1 appearance-none border-[3px] border-[#828e80] rounded-xl h-3 checked:bg-[#828e80]"
-          type="radio"
-          :checked="numberOfWorkCount > 2"
-          disabled
-        />
-        <input
-          class="flex-1 appearance-none border-[3px] border-[#828e80] rounded-xl h-3 checked:bg-[#828e80]"
-          type="radio"
-          :checked="numberOfWorkCount > 3"
-          disabled
-        />
+        <div class="flex gap-2 px-10 py-4">
+          <input
+            class="flex-1 appearance-none border-[3px] border-[#828e80] rounded-xl h-3 checked:bg-[#828e80]"
+            type="radio"
+            :checked="numberOfWorkCount > 0"
+            disabled
+          />
+          <input
+            class="flex-1 appearance-none border-[3px] border-[#828e80] rounded-xl h-3 checked:bg-[#828e80]"
+            type="radio"
+            :checked="numberOfWorkCount > 1"
+            disabled
+          />
+          <input
+            class="flex-1 appearance-none border-[3px] border-[#828e80] rounded-xl h-3 checked:bg-[#828e80]"
+            type="radio"
+            :checked="numberOfWorkCount > 2"
+            disabled
+          />
+          <input
+            class="flex-1 appearance-none border-[3px] border-[#828e80] rounded-xl h-3 checked:bg-[#828e80]"
+            type="radio"
+            :checked="numberOfWorkCount > 3"
+            disabled
+          />
+        </div>
+        <Ambient />
+        <TodoList />
       </div>
-      <Ambient />
-      <TodoList />
     </ion-content>
   </ion-page>
 </template>
 
 <script setup lang="ts">
 import { IonContent, IonPage } from "@ionic/vue";
-import { computed, ref, watch } from "vue";
+import { computed, onMounted, ref, watch } from "vue";
 import TodoList from "@/components/todolist.vue";
 import Ambient from "../components/Ambient.vue";
 import timer from "../components/Timer.vue";
 import confirmation_tone from "@/assets/audio/mixkit-confirmation-tone-2867.wav";
+import { Keyboard } from "@capacitor/keyboard";
+import { Capacitor } from "@capacitor/core";
+
+const isKeyBoardVisible = ref(false);
+onMounted(() => {
+  if (Capacitor.getPlatform() !== "web") {
+    Keyboard.addListener("keyboardWillShow", (info) => {
+      console.log("keyboard will show with height:", info.keyboardHeight);
+      isKeyBoardVisible.value = true;
+    });
+    Keyboard.addListener("keyboardDidHide", () => {
+      console.log("keyboard did hide");
+      isKeyBoardVisible.value = false;
+    });
+  }
+});
 
 const numberOfWorkCount = ref(0);
 const isBreak = ref(false);
