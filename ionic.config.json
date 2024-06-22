@@ -1,0 +1,7 @@
+{
+  "name": "Time Garden",
+  "integrations": {
+    "capacitor": {}
+  },
+  "type": "vue-vite"
+}
