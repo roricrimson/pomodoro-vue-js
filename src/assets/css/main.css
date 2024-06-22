@@ -3,32 +3,23 @@
 @tailwind utilities;
 
 @layer base {
-  html, * {
-    font-family: 'Patrick Hand', system-ui, sans-serif;
+  html,
+  * {
+    font-family: "Patrick Hand", system-ui, sans-serif;
   }
 }
 
 @layer components {
   .timer-digits {
-    @apply text-[#7F8579] bg-white rounded-2xl py-1 px-4 text-[40px] text-center font-handjet font-bold font-black;
+    @apply text-[#7F8579] bg-white rounded-2xl py-1 px-4 text-[40px] text-center font-handjet font-black;
   }
 }
 @layer utilities {
-
-  .font-orbitron {
-    font-family: 'Orbitron', sans-serif;
-  }
-  .font-raleway {
-    font-family: 'Raleway', sans-serif;
-  }
-  .font-playwrite {
-    font-family: 'PlaywriteAUNSW', sans-serif;
-  }
   .font-patrick-hand {
-    font-family: 'Patrick Hand', sans-serif;
+    font-family: "Patrick Hand", sans-serif;
   }
   .font-handjet {
-    font-family: 'Handjet', sans-serif;
+    font-family: "Handjet", sans-serif;
   }
   /* Hide scrollbar for Chrome, Safari and Opera */
   .no-scrollbar::-webkit-scrollbar {

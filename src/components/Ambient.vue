@@ -36,13 +36,13 @@
         <div class="flex justify-between mb-2">
           <button fill="clear" @click="openDropdown = false">
             <ion-icon
-              class="text-[#c4c7b4] text-2xl"
+              class="text-[#7F8579] text-2xl"
               slot="icon-only"
               :icon="close"
             ></ion-icon>
           </button>
           <button
-            class="bg-[#C4C7B4] p-2 rounded-3 highlights"
+            class="bg-[#7F8579] p-2 rounded-3 highlights"
             v-if="tempListOfMusic.length > 0"
             @click="toggleAllAudio()"
           >
@@ -53,16 +53,16 @@
         <div class="rounded-lg">
           <div v-for="item in listOfAmbient">
             <div class="flex items-center justify-between">
-              <p class="text-[15px] text-[#C4C7B4]">{{ item.name }}</p>
+              <p class="text-[15px] text-[#7F8579]">{{ item.name }}</p>
               <ion-button fill="clear" @click="toggleAudio(item)"
                 ><ion-icon
-                  class="text-[#c4c7b4] text-2xl"
+                  class="text-[#7F8579] text-2xl"
                   slot="icon-only"
                   :icon="play"
                   v-if="!item.is_play"
                 ></ion-icon>
                 <ion-icon
-                  class="text-[#c4c7b4] text-2xl"
+                  class="text-[#7F8579] text-2xl"
                   slot="icon-only"
                   :icon="pause"
                   v-else
@@ -73,7 +73,7 @@
               <ion-icon
                 slot="icon-only"
                 :icon="volumeHigh"
-                class="m-2 text-[#c4c7b4] text-2xl"
+                class="m-2 text-[#7F8579] text-2xl"
               ></ion-icon>
               <ion-range
                 aria-label="Range with pin"
@@ -190,12 +190,12 @@ ion-content::part(scroll) {
 
 ion-range {
   --bar-background: #cad7c5;
-  --bar-background-active: #c4c7b4;
+  --bar-background-active: #7F8579;
   --bar-height: 3px;
   --bar-border-radius: 8px;
-  --knob-background: #c4c7b4;
+  --knob-background: #7F8579;
   --knob-size: 25px;
-  --pin-background: #c4c7b4;
+  --pin-background: #7F8579;
   --pin-color: #fff;
   padding: 0;
   margin-right: 20px;

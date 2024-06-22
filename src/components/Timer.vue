@@ -1,7 +1,7 @@
 <template>
   <div class="flex items-end relative">
     <div class="flex gap-2 items-center" v-if="elapsedTime === 0">
-      <p class="timer-digits">
+      <p class="timer-digits font-bold">
         {{
           `${String(Math.floor(Math.floor(countTimer / 1000) / 60)).padStart(
             2,
@@ -9,16 +9,16 @@
           )}`
         }}
       </p>
-      <p class="timer-digits">
+      <p class="timer-digits font-bold" >
         {{ `${String(Math.floor(countTimer / 1000) % 60).padStart(2, "0")}` }}
       </p>
     </div>
     <div class="flex gap-[10px] items-center" v-else>
-      <p class="timer-digits">{{ formatted.minutes }}</p>
-      <p class="timer-digits">{{ formatted.seconds }}</p>
+      <p class="timer-digits font-bold">{{ formatted.minutes }}</p>
+      <p class="timer-digits font-bold">{{ formatted.seconds }}</p>
     </div>
 
-    <div class="ms-auto self-end flex flex-col gap-2">
+    <div class="ms-auto self-end flex flex-row gap-1" v-auto-animate>
       <button class="block leading-[0px]" @click="resetTimer" v-if="!isRunning">
         <ion-icon class="text-white text-2xl bottom-1" slot="icon-only" :icon="refresh">
         </ion-icon>

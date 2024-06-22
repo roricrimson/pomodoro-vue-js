@@ -5,7 +5,7 @@
         <div
           class="mx-5 mb-0 mt-10 p-5 rounded-3xl shadow-md shadow-[#989e8e] background-image"
         >
-          <p class="text-white text-3xl it text-start mb-16 font-handjet">
+          <p class="text-white text-2xl it text-start mb-16 font-handjet">
             {{ statusText }}
           </p>
 

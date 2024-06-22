@@ -3,7 +3,7 @@
     <div class="flex items-start gap-2" v-if="!isEditing">
       <p
         :class="{ 'line-through text-opacity-80': checked }"
-        class="text-[#828e80] flex-1 break-all"
+        class="text-[#828e80] flex-1 break-all font-patrick-hand"
         @click="emits('toggleCheck', !checked)"
       >
         {{ name }}
