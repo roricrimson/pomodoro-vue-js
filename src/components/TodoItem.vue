@@ -1,108 +1,123 @@
 <template>
-  <div
-    class="flex relative justify-between"
-    style="border-bottom: 1px solid #828e80"
-  >
-    <!-- @input="" -->
-    <textarea
-      :value="name"
-      @input="adjustHeight($event)"
-      ref="gesture"
-      rows="1"
-      @keyup.enter="emits('toggleCheck')"
-    ></textarea>
-    <div class="flex w-[25%] justify-end">
-      <ion-button
-        fill="clear"
-        @click="emits('update'), (isInputChange = false)"
-        v-if="isInputChange"
-        ><ion-icon
-          class="text-[#828E80]"
-          slot="icon-only"
-          :icon="checkmark"
-        ></ion-icon
-      ></ion-button>
-      <ion-button fill="clear" @click="emits('delete')"
-        ><ion-icon
-          class="text-[#828E80]"
-          slot="icon-only"
-          :icon="close"
-        ></ion-icon
-      ></ion-button>
+  <div class="py-2" style="border-bottom: 1px solid #828e80">
+    <div class="flex items-start gap-2" v-if="!isEditing">
+      <p
+        :class="{ 'line-through text-opacity-80': checked }"
+        class="text-[#828e80] flex-1 break-all"
+        @click="emits('toggleCheck', !checked)"
+      >
+        {{ name }}
+      </p>
+      <button
+        class="w-6 aspect-square"
+        @click="showPopover = { isOpen: true, event: $event }"
+        type="button"
+      >
+        <ion-icon class="text-[#828E80]" :icon="ellipsisHorizontal"></ion-icon>
+      </button>
     </div>
+    <form
+      class="flex items-start gap-2"
+      @submit.prevent="onSubmit"
+      v-if="isEditing"
+    >
+      <input
+        ref="input"
+        class="bg-transparent text-[#828e80] flex-1 focus:outline-none"
+        :value="name"
+      />
+      <button class="w-6 aspect-square" type="submit">
+        <ion-icon class="text-[#828E80] text-xl" :icon="checkmark"></ion-icon>
+      </button>
+    </form>
 
-    <div
-      class="absolute h-[2px] bg-[#828E80] top-[50%] left-[-5px] w-0 transition-all"
-      :class="{ checked: props.checked }"
-    ></div>
+    <ion-popover
+      :isOpen="showPopover.isOpen"
+      :event="showPopover.event"
+      reference="event"
+      :show-backdrop="false"
+      @didDismiss="showPopover = { isOpen: false, event: null }"
+    >
+      <ion-content>
+        <ul class="p-2 flex flex-col gap-2">
+          <li>
+            <button
+              class="text-[#828E80] active:text-[#9ba799]"
+              @click="onEdit"
+            >
+              <ion-icon :icon="create"></ion-icon>
+              Edit
+            </button>
+          </li>
+          <li>
+            <button
+              class="text-[#828E80] active:text-[#9ba799]"
+              @click="onDelete"
+            >
+              <ion-icon :icon="trash"></ion-icon>
+              Delete
+            </button>
+          </li>
+        </ul>
+      </ion-content>
+    </ion-popover>
   </div>
 </template>
 <script setup lang="ts">
-import { IonIcon, IonButton, createGesture } from "@ionic/vue";
-import { close, checkmark } from "ionicons/icons";
-import { Ref, computed, onMounted, ref, toValue, defineModel } from "vue";
+import { IonIcon, IonContent, IonPopover } from "@ionic/vue";
+import { checkmark, ellipsisHorizontal, create, trash } from "ionicons/icons";
+import { ref } from "vue";
 
-const props = defineProps<{
+defineProps<{
+  id: any;
   name?: any;
   checked?: boolean;
 }>();
-const emits = defineEmits(["toggleCheck", "update", "delete", "update:name"]);
-
-const gesture = ref<any>(null);
-
-const isInputChange = ref(false);
-
-onMounted(() => {
-  if (gesture.value) {
-    const swipe = createGesture({
-      direction: "x",
-      threshold: 100,
-      el: gesture.value,
-      onMove: (ev) => {
-        if (Math.sign(ev.deltaX) == 1) {
-          emits("toggleCheck", true);
-        } else if (Math.sign(ev.deltaX) == -1) {
-          emits("toggleCheck", false);
-        }
-      },
-      gestureName: "example",
-    });
-    swipe.enable();
-    const textarea = gesture.value;
-    textarea.style.height = "auto";
-    textarea.style.height = `${textarea.scrollHeight}px`;
-  }
+const emits = defineEmits(["toggleCheck", "delete", "update:name", "update"]);
+const input = ref<any>(null);
+const isEditing = ref(false);
+const showPopover = ref<any>({
+  isOpen: false,
+  event: null,
 });
+function onEdit() {
+  showPopover.value = { isOpen: false, event: null };
+  setTimeout(() => {
+    isEditing.value = true;
+  });
+  setTimeout(() => {
+    input.value?.focus();
+  }, 500);
+}
 
-function adjustHeight(event: any) {
-  const textarea = gesture.value;
-  textarea.style.height = "auto";
-  textarea.style.height = `${textarea.scrollHeight}px`;
+function onDelete() {
+  showPopover.value = { isOpen: false, event: null };
+  setTimeout(() => {
+    emits("delete");
+  });
+}
 
-  emits("update:name", event.target.value);
-  isInputChange.value = true;
+function onSubmit() {
+  emits("update:name", input.value?.value);
+  emits("update");
+  setTimeout(() => {
+    isEditing.value = false;
+  });
 }
 </script>
 <style scoped>
-textarea {
-  background-color: transparent;
-  color: #828e80;
-  resize: none;
-  overflow: hidden;
-  min-height: 44px;
-  width: 75%;
-  padding: 10px 0;
+ion-popover {
+  --width: 100px;
 }
-
-textarea:focus {
-  outline: none;
+ion-popover::part(content) {
+  border-radius: 0.3rem;
+}
+ion-content {
+  --background: #cad7c5;
+  --width: 100px;
 }
 ion-button {
   --padding-end: 0;
   --padding-start: 0;
-}
-
-.checked {
-  width: 75%;
 }
 </style>

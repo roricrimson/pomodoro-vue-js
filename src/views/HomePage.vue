@@ -2,9 +2,9 @@
   <ion-page>
     <ion-content :fullscreen="true">
       <div
-        class="bg-[#999C89] mx-4 mb-0 mt-10 p-5 rounded-3xl shadow-md shadow-[#989e8e]"
+        class="bg-[#999C89] mx-5 mb-0 mt-10 p-5 rounded-3xl shadow-md shadow-[#989e8e]"
       >
-        <p class="text-white text-3xl it text-start mb-16">
+        <p class="text-white text-3xl it text-start mb-16 font-playwrite">
           {{ statusText }}
         </p>
 
@@ -46,7 +46,7 @@
 <script setup lang="ts">
 import { IonContent, IonPage } from "@ionic/vue";
 import { computed, ref, watch } from "vue";
-import TodoList from "../components/TodoList.vue";
+import TodoList from "@/components/todolist.vue";
 import Ambient from "../components/Ambient.vue";
 import timer from "../components/Timer.vue";
 import confirmation_tone from "@/assets/audio/mixkit-confirmation-tone-2867.wav";
@@ -113,6 +113,11 @@ function updateProgress() {
 <style scoped>
 ion-content {
   --background: #fcfef3;
+}
+
+ion-content::part(scroll) {
+  display: flex;
+  flex-direction: column;
 }
 
 .sessions input[type="radio"]:checked {

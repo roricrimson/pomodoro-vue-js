@@ -1,0 +1,48 @@
+@font-face {
+    font-family: 'Orbitron';
+    src: url('Orbitron-VariableFont_wght.ttf') format('truetype');
+    font-weight: 100 900;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Orbitron';
+    src: url('./static/Orbitron-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Orbitron';
+    src: url('./static/Orbitron-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Orbitron';
+    src: url('./static/Orbitron-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Orbitron';
+    src: url('./static/Orbitron-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Orbitron';
+    src: url('./static/Orbitron-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+  }
+  
+  @font-face {
+    font-family: 'Orbitron';
+    src: url('./static/Orbitron-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+  }
