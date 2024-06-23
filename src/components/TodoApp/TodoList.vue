@@ -1,6 +1,6 @@
 <template>
   <div
-    class="bg-[#CAD7C5] m-5 mt-8 p-6 pb-8 pt-8 rounded-3xl shadow-[3px_3px_3px_0_#989e8e] relative flex-1 h-0 flex flex-col"
+    class="bg-[#CAD7C5] m-5 mt-8 p-6 pb-8 pt-8 rounded-3xl shadow-[3px_3px_3px_0_#989e8e] relative h-72 flex flex-col"
   >
     <div class="spiral-pin absolute -top-[11px] left-0 right-0 flex gap-1 px-6">
       <span
@@ -61,9 +61,9 @@ const todoListDesc = computed(() => {
 });
 
 const emptyItems = computed(() => {
-  if (todoList.value.length >= 5) return [];
+  if (todoList.value.length >= 4) return [];
   const arr: number[] = [];
-  for (let i = 0; i < 5 - todoList.value.length; i++) {
+  for (let i = 0; i < 4 - todoList.value.length; i++) {
     arr[i] = i;
   }
   return arr;

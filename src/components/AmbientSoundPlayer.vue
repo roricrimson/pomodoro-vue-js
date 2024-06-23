@@ -2,7 +2,7 @@
   <div class="w-[100%] flex gap-2 px-5 h-14">
     <button
       @click="openDropdown = true"
-      class="bg-[#c6c8ba] rounded-xl shadow-[2px_2px_3px_0_#989e8e] p-2 flex justify-center items-center"
+      class="bg-[#c6c8ba] w-16 rounded-xl shadow-[2px_2px_3px_0_#989e8e] p-2 flex justify-center items-center"
     >
       <ion-icon class="text-white text-3xl" :icon="options"></ion-icon>
     </button>
@@ -31,7 +31,7 @@
             ></ion-icon>
           </button>
           <button
-            class="bg-[#7F8579] p-2 rounded-3 highlights"
+            class="bg-[#7F8579] p-2 py-1 rounded-md highlights"
             v-if="tempListOfMusic.length > 0"
             @click="toggleAllAudio()"
           >
