@@ -13,8 +13,6 @@ const config: CapacitorConfig = {
     },
     SplashScreen: {
       androidScaleType: "CENTER_CROP",
-      splashFullScreen:true,
-      splashImmersive:true
     },
   },
 };

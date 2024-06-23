@@ -23,7 +23,7 @@
         <ion-icon class="text-[#828E80] text-2xl" :icon="add"></ion-icon>
       </button>
     </form>
-    <div class="flex flex-col flex-1 no-scrollbar overflow-y-scroll">
+    <div class="flex flex-col flex-1 no-scrollbar overflow-y-scroll" v-auto-animate>
       <TodoItem
         v-for="item in todoListDesc"
         @toggle-check="changeCheckBox($event, item.id)"

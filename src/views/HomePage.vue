@@ -144,7 +144,7 @@ ion-content::part(scroll) {
 }
 
 .background-image {
-  background: url("@/assets/img/pomodoro-forest.png");
+  background: url("@/assets/img/pomodoro-forest.webp");
   background-size: contain;
   background-repeat: repeat-x; /* Ensures the image repeats horizontally */
   animation: slide 500s linear infinite alternate;

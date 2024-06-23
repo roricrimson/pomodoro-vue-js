@@ -1,9 +1,9 @@
 <template>
-  <div class="py-2" style="border-bottom: 1px solid #828e80">
-    <div class="flex items-start gap-2" v-if="!isEditing">
+  <div class="py-2 has-[:active]:bg-[#d3ddce] transition-colors" style="border-bottom: 1px solid #828e80">
+    <div class="flex items-start gap-2 " v-if="!isEditing">
       <p
         :class="{ 'line-through text-opacity-80': checked }"
-        class="text-[#828e80] flex-1 break-all font-patrick-hand"
+        class="text-[#828e80] flex-1 break-all font-patrick-hand decoration-2 active:bg-[#d3ddce] transition-colors"
         @click="emits('toggleCheck', !checked)"
       >
         {{ name }}

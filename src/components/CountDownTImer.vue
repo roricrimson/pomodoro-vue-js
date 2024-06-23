@@ -19,7 +19,7 @@
     </div>
 
     <div class="ms-auto self-end flex flex-row gap-1 relative">
-      <button class="block leading-[0px]" @click="resetTimer" v-if="!isRunning">
+      <button class="block leading-[0px] active:bg-[#d3ddce] transition-colors" @click="resetTimer" v-if="!isRunning">
         <ion-icon
           class="text-white text-2xl bottom-1"
           slot="icon-only"
@@ -27,11 +27,11 @@
         >
         </ion-icon>
       </button>
-      <button class="block leading-[0px]" @click="startTimer" v-if="!isRunning">
+      <button class="block leading-[0px] active:bg-[#d3ddce] transition-colors" @click="startTimer" v-if="!isRunning">
         <ion-icon class="text-white text-2xl" slot="icon-only" :icon="play">
         </ion-icon>
       </button>
-      <button class="block leading-[0px]" @click="stopTimer" v-else>
+      <button class="block leading-[0px] active:bg-[#d3ddce] transition-colors" @click="stopTimer" v-else>
         <ion-icon class="text-white text-2xl" slot="icon-only" :icon="pause">
         </ion-icon>
       </button>
