@@ -7,20 +7,9 @@
       <ion-icon class="text-white text-3xl" :icon="options"></ion-icon>
     </button>
     <div
-      class="bg-[#F5EEDE] shadow-[2px_2px_3px_0_#989e8e] rounded-xl w-[100%] text-[#C4C7B4] text-start font-semibold px-6"
+      class="bg-[#F5EEDE] shadow-[2px_2px_3px_0_#989e8e] rounded-xl w-[100%] text-[#C4C7B4] text-start font-semibold px-6 flex"
     >
-      <div :class="isAllAudioPaused ? 'loader' : 'loader animated'">
-        <span class="loader__element"></span>
-        <span class="loader__element"></span>
-        <span class="loader__element"></span>
-        <span class="loader__element"></span>
-        <span class="loader__element"></span>
-        <span class="loader__element"></span>
-        <span class="loader__element"></span>
-        <span class="loader__element"></span>
-        <span class="loader__element"></span>
-        <span class="loader__element"></span>
-      </div>
+      <MusicWaveAnimation :play="!isAllAudioPaused" />
     </div>
   </div>
   <ion-popover
@@ -101,6 +90,7 @@ import {
 import { play, pause, options, volumeHigh, close } from "ionicons/icons";
 import { computed, ref } from "vue";
 import { useAmbientList } from "@/composables/useAmbientList";
+import MusicWaveAnimation from "@/components/MusicWaveAnimation.vue";
 
 const { listOfAmbient } = useAmbientList();
 
@@ -207,58 +197,5 @@ ion-range {
 ion-range::part(knob),
 ion-range::part(pin) {
   pointer-events: auto;
-}
-
-.loader {
-  overflow: hidden;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  align-items: center;
-  align-content: center;
-  justify-content: center;
-  gap: 10px;
-  z-index: 100000;
-}
-
-.loader__element {
-  border-radius: 100%;
-  border: var(--size) solid var(--point-color);
-}
-.loader.animated .loader__element:nth-child(1) {
-  animation: preloader 0.6s ease-in-out alternate infinite;
-}
-.loader.animated .loader__element:nth-child(2) {
-  animation: preloader 0.6s ease-in-out alternate 0.2s infinite;
-}
-.loader.animated .loader__element:nth-child(3) {
-  animation: preloader 0.6s ease-in-out alternate 0.4s infinite;
-}
-.loader.animated .loader__element:nth-child(4) {
-  animation: preloader 0.6s ease-in-out alternate 0.6s infinite;
-}
-.loader.animated .loader__element:nth-child(5) {
-  animation: preloader 0.6s ease-in-out alternate 0.8s infinite;
-}
-.loader.animated .loader__element:nth-child(6) {
-  animation: preloader 0.6s ease-in-out alternate 1s infinite;
-}
-.loader.animated .loader__element:nth-child(7) {
-  animation: preloader 0.6s ease-in-out alternate 1.2s infinite;
-}
-.loader.animated .loader__element:nth-child(8) {
-  animation: preloader 0.6s ease-in-out alternate 1.4s infinite;
-}
-.loader.animated .loader__element:nth-child(9) {
-  animation: preloader 0.6s ease-in-out alternate 1.6s infinite;
-}
-.loader.animated .loader__element:nth-child(10) {
-  animation: preloader 0.6s ease-in-out alternate 1.8s infinite;
-}
-
-@keyframes preloader {
-  100% {
-    transform: scale(2);
-  }
 }
 </style>

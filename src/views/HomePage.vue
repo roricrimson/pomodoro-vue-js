@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-content :fullscreen="true">
-      <div class="flex flex-col" :class="{ 'h-full': !isKeyBoardVisible }">
+      <div class="flex flex-col max-w-[500px] w-full mx-auto" :class="{ 'h-full': !isKeyBoardVisible }">
         <div
           class="mx-5 mb-0 mt-10 p-5 rounded-3xl shadow-[2px_2px_3px_0_#989e8e] background-image"
         >
