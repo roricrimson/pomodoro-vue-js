@@ -89,11 +89,10 @@ import {
 } from "@ionic/vue";
 import { play, pause, options, volumeHigh, close } from "ionicons/icons";
 import { computed, ref } from "vue";
-import { useAmbientList } from "@/composables/useAmbientList";
+import { musics } from "@/data/AmbientMusic.ts";
 import MusicWaveAnimation from "@/components/MusicWaveAnimation.vue";
 
-const { listOfAmbient } = useAmbientList();
-
+const listOfAmbient = ref(musics);
 const openDropdown = ref(false);
 
 const pinFormatter = ref((value: number) => `${value}%`);
