@@ -88,12 +88,23 @@ import {
   IonPopover,
 } from "@ionic/vue";
 import { play, pause, options, volumeHigh, close } from "ionicons/icons";
-import { computed, ref } from "vue";
-import { musics } from "@/data/AmbientMusic.ts";
+import { computed, ref, watchEffect } from "vue";
+import { musics } from "@/data/AmbientMusic";
 import MusicWaveAnimation from "@/components/MusicWaveAnimation.vue";
+import { useBackButtonStore } from "@/stores/useBackButtonStore";
+import { storeToRefs } from "pinia";
 
+const { shouldMinimizeApp } = storeToRefs(useBackButtonStore());
 const listOfAmbient = ref(musics);
 const openDropdown = ref(false);
+
+watchEffect(() => {
+  if (openDropdown.value) {
+    shouldMinimizeApp.value = false;
+  } else {
+    shouldMinimizeApp.value = true;
+  }
+});
 
 const pinFormatter = ref((value: number) => `${value}%`);
 
