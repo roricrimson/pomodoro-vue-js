@@ -1,5 +1,5 @@
 <template>
-  <div class="py-2 has-[:active]:bg-[#d3ddce] transition-colors" style="border-bottom: 1px solid #828e80">
+  <div class="py-2 has-active:bg-[#d3ddce] transition-colors" style="border-bottom: 1px solid #828e80">
     <div class="flex items-start gap-2 " v-if="!isEditing">
       <p
         :class="{ 'line-through text-opacity-80': checked }"
@@ -23,7 +23,7 @@
     >
       <input
         ref="input"
-        class="bg-transparent text-[#828e80] flex-1 focus:outline-none"
+        class="bg-transparent text-[#828e80] flex-1 focus:outline-hidden"
         :value="name"
       />
       <button class="w-6 aspect-square" type="submit">

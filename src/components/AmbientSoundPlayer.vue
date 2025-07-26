@@ -1,5 +1,5 @@
 <template>
-  <div class="w-[100%] flex gap-2 px-5 h-14">
+  <div class="w-full flex gap-2 px-5 h-14">
     <button
       @click="openDropdown = true"
       class="bg-[#c6c8ba] w-16 rounded-xl shadow-[2px_2px_3px_0_#989e8e] p-2 flex justify-center items-center"
@@ -7,7 +7,7 @@
       <ion-icon class="text-white text-3xl" :icon="options"></ion-icon>
     </button>
     <div
-      class="bg-[#F5EEDE] shadow-[2px_2px_3px_0_#989e8e] rounded-xl w-[100%] text-[#C4C7B4] text-start font-semibold px-6 flex"
+      class="bg-[#F5EEDE] shadow-[2px_2px_3px_0_#989e8e] rounded-xl w-full text-[#C4C7B4] text-start font-semibold px-6 flex"
     >
       <MusicWaveAnimation :play="!isAllAudioPaused" />
     </div>

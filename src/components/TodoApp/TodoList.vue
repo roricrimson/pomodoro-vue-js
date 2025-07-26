@@ -15,7 +15,7 @@
       class="flex gap-2"
     >
       <input
-        class="bg-transparent text-[#828e80] flex-1 placeholder:text-sm focus:outline-none pb-1"
+        class="bg-transparent text-[#828e80] flex-1 placeholder:text-sm focus:outline-hidden pb-1"
         v-model="notes"
         placeholder="Tap to write"
       />
