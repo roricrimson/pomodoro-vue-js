@@ -2,7 +2,7 @@ import { TimerDuration } from '@/types/pomodoro';
 
 export const POMODORO_CONSTANTS = {
   WORK_SESSIONS_BEFORE_LONG_BREAK: 4,
-  TIMER_UPDATE_INTERVAL: 10, // milliseconds
+  TIMER_UPDATE_INTERVAL: 100, // milliseconds - reduced from 10ms for better performance
   TODO_STORAGE_KEY: 'TodoList',
   MAX_VISIBLE_TODO_ITEMS: 4,
 } as const;
