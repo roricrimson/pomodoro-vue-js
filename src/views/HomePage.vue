@@ -70,8 +70,17 @@ const {
 // Audio handling
 const { playSessionCompleteSound } = useAudio();
 
-function handleTimerComplete() {
-  playSessionCompleteSound();
+async function handleTimerComplete() {
+  try {
+    const result = await playSessionCompleteSound();
+    if (!result.success && result.error) {
+      console.warn('Session complete sound failed to play:', result.error);
+      // Could add user notification here if needed
+    }
+  } catch (error) {
+    console.warn('Error playing session complete sound:', error);
+  }
+  
   advanceToNextSession();
 }
 </script>

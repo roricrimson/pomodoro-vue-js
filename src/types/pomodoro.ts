@@ -9,6 +9,9 @@ export interface AmbientSound {
   name: string;
   isPlaying: boolean;
   volume: number;
+  hasError?: boolean;
+  errorMessage?: string;
+  isLoading?: boolean;
 }
 
 export interface TodoItem {
