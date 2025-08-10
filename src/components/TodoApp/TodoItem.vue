@@ -1,28 +1,31 @@
 <template>
   <div class="py-2 has-active:bg-[#d3ddce] transition-colors" style="border-bottom: 1px solid #828e80">
-    <div class="flex items-start gap-2 " v-if="!isEditing">
+    <!-- Display mode -->
+    <div class="flex items-start gap-2" v-if="!isEditing">
       <p
         :class="{ 'line-through text-opacity-80': checked }"
         class="text-[#828e80] flex-1 break-all font-patrick-hand decoration-2 active:bg-[#d3ddce] transition-colors"
-        @click="emits('toggleCheck', !checked)"
+        @click="$emit('toggleCheck', !checked)"
       >
         {{ name }}
       </p>
       <button
         class="w-6 aspect-square"
-        @click="showPopover = { isOpen: true, event: $event }"
+        @click="showContextMenu = { isOpen: true, event: $event }"
         type="button"
       >
         <ion-icon class="text-[#828E80]" :icon="ellipsisHorizontal"></ion-icon>
       </button>
     </div>
+    
+    <!-- Edit mode -->
     <form
       class="flex items-start gap-2"
-      @submit.prevent="onSubmit"
+      @submit.prevent="handleSubmit"
       v-if="isEditing"
     >
       <input
-        ref="input"
+        ref="inputRef"
         class="bg-transparent text-[#828e80] flex-1 focus:outline-hidden"
         :value="name"
       />
@@ -31,19 +34,20 @@
       </button>
     </form>
 
+    <!-- Context menu -->
     <ion-popover
-      :isOpen="showPopover.isOpen"
-      :event="showPopover.event"
+      :is-open="showContextMenu.isOpen"
+      :event="showContextMenu.event"
       reference="event"
       :show-backdrop="false"
-      @didDismiss="showPopover = { isOpen: false, event: null }"
+      @did-dismiss="showContextMenu = { isOpen: false, event: null }"
     >
       <ion-content>
         <ul class="p-2 flex flex-col gap-2">
           <li>
             <button
               class="text-[#828E80] active:text-[#9ba799]"
-              @click="onEdit"
+              @click="startEditing"
             >
               <ion-icon :icon="create"></ion-icon>
               Edit
@@ -52,7 +56,7 @@
           <li>
             <button
               class="text-[#828E80] active:text-[#9ba799]"
-              @click="onDelete"
+              @click="handleDelete"
             >
               <ion-icon :icon="trash"></ion-icon>
               Delete
@@ -63,48 +67,58 @@
     </ion-popover>
   </div>
 </template>
+
 <script setup lang="ts">
 import { IonIcon, IonContent, IonPopover } from "@ionic/vue";
 import { checkmark, ellipsisHorizontal, create, trash } from "ionicons/icons";
-import { ref } from "vue";
+import { ref, nextTick } from "vue";
 
-defineProps<{
-  id: any;
-  name?: any;
-  checked?: boolean;
+interface Props {
+  id: number;
+  name: string;
+  checked: boolean;
+}
+
+defineProps<Props>();
+
+const emit = defineEmits<{
+  toggleCheck: [checked: boolean];
+  delete: [];
+  'update:name': [name: string];
+  update: [];
 }>();
-const emits = defineEmits(["toggleCheck", "delete", "update:name", "update"]);
-const input = ref<any>(null);
+
+const inputRef = ref<HTMLInputElement | null>(null);
 const isEditing = ref(false);
-const showPopover = ref<any>({
+const showContextMenu = ref<{
+  isOpen: boolean;
+  event: Event | null;
+}>({
   isOpen: false,
   event: null,
 });
-function onEdit() {
-  showPopover.value = { isOpen: false, event: null };
-  setTimeout(() => {
-    isEditing.value = true;
-  });
-  setTimeout(() => {
-    input.value?.focus();
-  }, 500);
+
+async function startEditing() {
+  showContextMenu.value = { isOpen: false, event: null };
+  await nextTick();
+  isEditing.value = true;
+  await nextTick();
+  inputRef.value?.focus();
 }
 
-function onDelete() {
-  showPopover.value = { isOpen: false, event: null };
-  setTimeout(() => {
-    emits("delete");
-  });
+function handleDelete() {
+  showContextMenu.value = { isOpen: false, event: null };
+  emit('delete');
 }
 
-function onSubmit() {
-  emits("update:name", input.value?.value);
-  emits("update");
-  setTimeout(() => {
-    isEditing.value = false;
-  });
+function handleSubmit() {
+  const newName = inputRef.value?.value?.trim() || '';
+  emit('update:name', newName);
+  emit('update');
+  isEditing.value = false;
 }
 </script>
+
 <style scoped>
 ion-popover {
   --width: 100px;

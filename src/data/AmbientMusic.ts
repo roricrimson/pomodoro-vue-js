@@ -1,45 +1,46 @@
-import Sunny_morning from "@/assets/audio/mixkit-birds-chirping-near-the-river-2473.wav";
-import Light_rain from "@/assets/audio/mixkit-light-rain-loop-2393.wav";
-import Riverside from "@/assets/audio/mixkit-water-flowing-ambience-loop-3126.wav";
-import Fireplace_crackling from "@/assets/audio/mixkit-campfire-crackles-1330.wav";
-import Writing_on_blackboard from "@/assets/audio/mixkit-writing-on-blackboard-2366.wav";
-import Typing_on_keyboard from "@/assets/audio/mixkit-slow-typing-on-a-keyboard-2532.wav";
+import { AmbientSound } from '@/types/pomodoro';
+import sunnyMorning from "@/assets/audio/mixkit-birds-chirping-near-the-river-2473.wav";
+import lightRain from "@/assets/audio/mixkit-light-rain-loop-2393.wav";
+import riverside from "@/assets/audio/mixkit-water-flowing-ambience-loop-3126.wav";
+import fireplaceCrackling from "@/assets/audio/mixkit-campfire-crackles-1330.wav";
+import writingOnBlackboard from "@/assets/audio/mixkit-writing-on-blackboard-2366.wav";
+import typingOnKeyboard from "@/assets/audio/mixkit-slow-typing-on-a-keyboard-2532.wav";
 
-export const musics = [
+export const ambientSounds: AmbientSound[] = [
   {
-    audio: new Audio(Sunny_morning),
+    audio: new Audio(sunnyMorning),
     name: "Sunny morning",
-    is_play: false,
+    isPlaying: false,
     volume: 50,
   },
   {
-    audio: new Audio(Light_rain),
+    audio: new Audio(lightRain),
     name: "Light rain",
-    is_play: false,
+    isPlaying: false,
     volume: 50,
   },
   {
-    audio: new Audio(Riverside),
+    audio: new Audio(riverside),
     name: "Riverside",
-    is_play: false,
+    isPlaying: false,
     volume: 50,
   },
   {
-    audio: new Audio(Fireplace_crackling),
+    audio: new Audio(fireplaceCrackling),
     name: "Fireplace crackling",
-    is_play: false,
+    isPlaying: false,
     volume: 50,
   },
   {
-    audio: new Audio(Writing_on_blackboard),
+    audio: new Audio(writingOnBlackboard),
     name: "Writing on blackboard",
-    is_play: false,
+    isPlaying: false,
     volume: 50,
   },
   {
-    audio: new Audio(Typing_on_keyboard),
+    audio: new Audio(typingOnKeyboard),
     name: "Typing on keyboard",
-    is_play: false,
+    isPlaying: false,
     volume: 50,
   },
 ];

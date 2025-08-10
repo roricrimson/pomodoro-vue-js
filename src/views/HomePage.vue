@@ -1,7 +1,7 @@
 <template>
   <ion-page>
     <ion-content :fullscreen="true">
-      <div class="flex flex-col max-w-[500px] w-full mx-auto" :class="{ 'h-full': !isKeyBoardVisible }">
+      <div class="flex flex-col max-w-[500px] w-full mx-auto" :class="{ 'h-full': !isKeyboardVisible }">
         <div
           class="mx-5 mb-0 mt-10 p-5 rounded-3xl shadow-[2px_2px_3px_0_#989e8e] background-image"
         >
@@ -9,36 +9,22 @@
             {{ statusText }}
           </p>
 
-          <timer :count-timer="countTimer" @onCountDownEnd="updateProgress()" />
+          <CountdownTimer :count-timer="currentTimerDuration" @on-countdown-end="handleTimerComplete" />
         </div>
 
+        <!-- Progress Indicators -->
         <div class="flex gap-2 px-10 py-4">
           <input
+            v-for="(indicator, index) in progressIndicators"
+            :key="index"
             class="flex-1 appearance-none border-[3px] border-[#999C89] rounded-xl h-3 checked:bg-[#999C89]"
             type="radio"
-            :checked="numberOfWorkCount > 0"
-            disabled
-          />
-          <input
-            class="flex-1 appearance-none border-[3px] border-[#999C89] rounded-xl h-3 checked:bg-[#999C89]"
-            type="radio"
-            :checked="numberOfWorkCount > 1"
-            disabled
-          />
-          <input
-            class="flex-1 appearance-none border-[3px] border-[#999C89] rounded-xl h-3 checked:bg-[#999C89]"
-            type="radio"
-            :checked="numberOfWorkCount > 2"
-            disabled
-          />
-          <input
-            class="flex-1 appearance-none border-[3px] border-[#999C89] rounded-xl h-3 checked:bg-[#999C89]"
-            type="radio"
-            :checked="numberOfWorkCount > 3"
+            :checked="indicator.isCompleted"
             disabled
           />
         </div>
-        <Ambient />
+        
+        <AmbientSoundPlayer />
         <TodoList />
       </div>
     </ion-content>
@@ -47,88 +33,49 @@
 
 <script setup lang="ts">
 import { IonContent, IonPage } from "@ionic/vue";
-import { computed, onMounted, ref } from "vue";
-import TodoList from "@/components/TodoApp/TodoList.vue";
-import Ambient from "../components/AmbientSoundPlayer.vue";
-import timer from "../components/CountDownTImer.vue";
+import { onMounted, ref } from "vue";
 import { Keyboard } from "@capacitor/keyboard";
 import { Capacitor } from "@capacitor/core";
-import confirmation_tone from "@/assets/audio/mixkit-confirmation-tone-2867.wav";
 
-const isKeyBoardVisible = ref(false);
+import TodoList from "@/components/TodoApp/TodoList.vue";
+import AmbientSoundPlayer from "@/components/AmbientSoundPlayer.vue";
+import CountdownTimer from "@/components/CountDownTImer.vue";
+
+import { usePomodoro } from "@/composables/usePomodoro";
+import { useAudio } from "@/composables/useAudio";
+
+// Keyboard visibility handling for mobile platforms
+const isKeyboardVisible = ref(false);
+
 onMounted(() => {
   if (Capacitor.getPlatform() !== "web") {
-    Keyboard.addListener("keyboardWillShow", (info) => {
-      console.log("keyboard will show with height:", info.keyboardHeight);
-      isKeyBoardVisible.value = true;
+    Keyboard.addListener("keyboardWillShow", () => {
+      isKeyboardVisible.value = true;
     });
+    
     Keyboard.addListener("keyboardDidHide", () => {
-      console.log("keyboard did hide");
-      isKeyBoardVisible.value = false;
+      isKeyboardVisible.value = false;
     });
   }
 });
 
-const numberOfWorkCount = ref(0);
-const isBreak = ref(false);
-const isWork = ref(true);
-const isLongBreak = ref(false);
-const Work_time = ref(25 * 60 * 1000);
-const Break_time = ref(5 * 60 * 1000);
-const Long_break_time = ref(15 * 60 * 1000);
+// Pomodoro logic
+const { 
+  statusText, 
+  currentTimerDuration, 
+  progressIndicators, 
+  advanceToNextSession 
+} = usePomodoro();
 
-const countTimer = computed(() => {
-  if (isWork.value) {
-    return Work_time.value;
-  } else if (isBreak.value) {
-    return Break_time.value;
-  } else if (isLongBreak.value) {
-    return Long_break_time.value;
-  }
-  return 0;
-});
+// Audio handling
+const { playSessionCompleteSound } = useAudio();
 
-const statusText = computed(() => {
-  if (isWork.value) {
-    return "Work Time";
-  }
-  if (isBreak.value) {
-    return "Break Time";
-  }
-  if (isLongBreak.value) {
-    return "Long Break Time";
-  }
-  return ""; // Default return value if none of the conditions are met
-});
-
-const Break_time_sound = new Audio(confirmation_tone);
-
-function updateProgress() {
-  if (isWork.value) {
-    Break_time_sound.play();
-    numberOfWorkCount.value++;
-    if (numberOfWorkCount.value > 3) {
-      isLongBreak.value = true;
-      isBreak.value = false;
-    } else {
-      isBreak.value = true;
-      isLongBreak.value = false;
-    }
-    isWork.value = false;
-  } else if (isBreak.value) {
-    Break_time_sound.play();
-    isWork.value = true;
-    isBreak.value = false;
-    isLongBreak.value = false;
-  } else if (isLongBreak.value) {
-    Break_time_sound.play();
-    isWork.value = true;
-    isBreak.value = false;
-    isLongBreak.value = false;
-    numberOfWorkCount.value = 0;
-  }
+function handleTimerComplete() {
+  playSessionCompleteSound();
+  advanceToNextSession();
 }
 </script>
+
 <style scoped>
 ion-content {
   --background: #fcfef3;
@@ -137,10 +84,6 @@ ion-content {
 ion-content::part(scroll) {
   display: flex;
   flex-direction: column;
-}
-
-.sessions input[type="radio"]:checked {
-  background-color: #999c89;
 }
 
 .background-image {

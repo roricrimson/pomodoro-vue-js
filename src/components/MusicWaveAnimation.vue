@@ -1,6 +1,11 @@
 <script setup lang="ts">
-defineProps(["play"]);
+interface Props {
+  play: boolean;
+}
+
+defineProps<Props>();
 </script>
+
 <template>
   <div class="music" :class="{ animated: play }">
     <div class="bar"></div>
