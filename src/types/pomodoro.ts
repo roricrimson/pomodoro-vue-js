@@ -4,6 +4,15 @@ export interface TimerDuration {
   longBreak: number;
 }
 
+export interface TimerState {
+  isRunning: boolean;
+  elapsedTime: number;
+  startTime: number;
+  pausedTime: number;
+  duration: number;
+  lastSaved: number;
+}
+
 export interface AmbientSound {
   audio: HTMLAudioElement;
   name: string;

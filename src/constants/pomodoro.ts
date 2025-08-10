@@ -5,6 +5,7 @@ export const POMODORO_CONSTANTS = {
   TIMER_UPDATE_INTERVAL: 100, // milliseconds - reduced from 10ms for better performance
   TODO_STORAGE_KEY: 'TodoList',
   POMODORO_STATE_KEY: 'PomodoroState',
+  TIMER_STATE_KEY: 'TimerState',
   MAX_VISIBLE_TODO_ITEMS: 4,
 } as const;
 
