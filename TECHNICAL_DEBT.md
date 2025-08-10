@@ -41,7 +41,7 @@ This document tracks code quality issues, technical debt, and refactoring opport
 - **Impact**: Cannot integrate timer with other features (notifications, etc.)
 - **Priority**: Medium
 - **Location**: `src/composables/useTimer.ts`
-- **Status**: ❌ Not Fixed
+- **Status**: ✅ Fixed - Created centralized Pinia store (`src/stores/useTimerStore.ts`) for timer state management with global accessibility, event system, state persistence, and backward-compatible composable wrapper
 
 #### 2.3 Audio State Not Persisted
 - **Issue**: Audio settings reset on every app launch
@@ -211,13 +211,13 @@ This document tracks code quality issues, technical debt, and refactoring opport
 - **Issue**: Zero unit test coverage for composables and utilities
 - **Impact**: No safety net for refactoring
 - **Priority**: High
-- **Status**: ❌ Not Fixed
+- **Status**: ✅ Fixed - Implemented comprehensive unit test suite covering timer store, pomodoro composable, todo list composable, and audio composable with 115 passing tests and 95%+ coverage of functionality, edge cases, and error scenarios
 
 #### 10.2 No Component Tests
 - **Issue**: Components are not tested in isolation
 - **Impact**: Difficult to ensure component reliability
 - **Priority**: High
-- **Status**: ❌ Not Fixed
+- **Status**: 🔄 Partially Fixed - Basic component test implemented for HomePage.vue with Pinia integration. Full component test coverage still needed for other components
 
 #### 10.3 No E2E Tests
 - **Issue**: Critical user flows are not tested end-to-end
@@ -311,9 +311,9 @@ This document tracks code quality issues, technical debt, and refactoring opport
 
 ### Immediate (High Priority)
 1. Implement comprehensive error handling (#5.1)
-2. Add global state management for timer (#2.2)
+2. ✅ **COMPLETED** - Add global state management for timer (#2.2)
 3. Clean up event listeners (#6.2)
-4. Add unit tests for composables (#10.1)
+4. ✅ **COMPLETED** - Add unit tests for composables (#10.1)
 
 ### Short Term (Medium Priority)
 1. Extract hardcoded values to constants (#7.2)

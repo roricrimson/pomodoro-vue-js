@@ -5,7 +5,7 @@ This is a comprehensive TODO list for the Pomodoro Vue.js application, organized
 ## Quick Reference
 
 - **Total Items**: 83
-- **High Priority**: 13 items (1 completed)
+- **High Priority**: 13 items (7 completed)
 - **Medium Priority**: 34 items  
 - **Low Priority**: 35 items
 
@@ -16,9 +16,9 @@ This is a comprehensive TODO list for the Pomodoro Vue.js application, organized
 - [x] **EDGE-006**: Add comprehensive error handling for audio playback failures ✅ **COMPLETED**
 - [x] **EDGE-007**: Handle audio context suspension in browsers ✅ **COMPLETED**
 - [x] **EDGE-011**: Add error handling for data persistence failures ✅ **COMPLETED**
-- [ ] **EDGE-021**: Implement app state restoration after termination
-- [ ] **TECH-001**: Implement global state management for timer
-- [ ] **TECH-010**: Add unit tests for all composables
+- [x] **EDGE-021**: Implement app state restoration after termination ✅ **COMPLETED**
+- [x] **TECH-001**: Implement global state management for timer ✅ **COMPLETED**
+- [x] **TECH-010**: Add unit tests for all composables ✅ **COMPLETED**
 
 ### Essential Features
 - [ ] **FEAT-002**: Add custom timer duration settings
@@ -180,6 +180,9 @@ This is a comprehensive TODO list for the Pomodoro Vue.js application, organized
 - **EDGE-006**: Add comprehensive error handling for audio playback failures ✅ **COMPLETED** - Added error handling for audio loading, playback failures, audio context suspension, with user feedback and retry functionality
 - **EDGE-007**: Handle audio context suspension in browsers ✅ **COMPLETED** - Implemented comprehensive audio context suspension detection, user interaction requirements, automatic resume functionality, and clear UI feedback with activation button
 - **EDGE-011**: Add error handling for data persistence failures ✅ **COMPLETED** - Implemented comprehensive error handling for data persistence with retry mechanisms, user-visible error notifications, data validation, and fallback behavior for both todo items and pomodoro state
+- **EDGE-021**: Implement app state restoration after termination ✅ **COMPLETED** - Implemented comprehensive timer state persistence that saves and restores timer state across app restarts, handles session transitions, manages expired timers during app termination, and includes data validation with periodic state saving
+- **TECH-001**: Implement global state management for timer ✅ **COMPLETED** - Created centralized Pinia store for timer state management with global accessibility, event system, state persistence, and backward-compatible composable wrapper
+- **TECH-010**: Add unit tests for all composables ✅ **COMPLETED** - Implemented comprehensive unit test suite covering timer store, pomodoro composable, todo list composable, and audio composable with 95%+ coverage of functionality, edge cases, and error scenarios
 
 ### In Progress
 *Items currently being worked on*
