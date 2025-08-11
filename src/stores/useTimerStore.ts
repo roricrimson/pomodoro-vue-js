@@ -206,6 +206,7 @@ export const useTimerStore = defineStore('timer', () => {
         saveTimerState();
       }
     }
+
   }
   
   function startTimer() {

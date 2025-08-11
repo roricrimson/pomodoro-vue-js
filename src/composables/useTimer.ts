@@ -1,4 +1,5 @@
 import { computed, onMounted, onUnmounted, Ref } from 'vue';
+import { storeToRefs } from 'pinia';
 import { useTimerStore } from '@/stores/useTimerStore';
 
 /**
@@ -59,13 +60,8 @@ export function useTimer(duration: Ref<number> | number, onComplete?: () => void
   });
 
   return {
-    // State (delegated to store)
-    isRunning: timerStore.isRunning,
-    elapsedTime: timerStore.elapsedTime,
-    isStateRestored: timerStore.isStateRestored,
-    
-    // Computed (delegated to store)
-    formattedTime: timerStore.formattedTime,
+    // State (reactive refs from store)
+    ...storeToRefs(timerStore),
     
     // Methods (delegated to store)
     startTimer: timerStore.startTimer,
