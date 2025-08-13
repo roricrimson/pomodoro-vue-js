@@ -1,4 +1,4 @@
-import { computed, onMounted, onUnmounted, Ref } from 'vue';
+import { computed, onMounted, onUnmounted, Ref, watch } from 'vue';
 import { storeToRefs } from 'pinia';
 import { useTimerStore } from '@/stores/useTimerStore';
 
@@ -14,6 +14,7 @@ import { useTimerStore } from '@/stores/useTimerStore';
  * - Provides scoped completion callbacks
  * - Maintains the same API as the original useTimer composable
  * - Handles duration changes for session transitions
+ * - Reactive duration updates when props change
  * 
  * Edge Case Resolution (EDGE-021): App State Restoration
  * This implementation ensures users don't lose timer progress when the app
@@ -35,6 +36,9 @@ export function useTimer(duration: Ref<number> | number, onComplete?: () => void
     timerStore.setDuration(currentDuration.value);
   };
 
+  // Cleanup function for completion callback
+  let cleanupCallback: (() => void) | undefined;
+
   // Initialize store and set duration
   onMounted(() => {
     timerStore.init();
@@ -42,21 +46,23 @@ export function useTimer(duration: Ref<number> | number, onComplete?: () => void
     
     // Register completion callback if provided
     if (onComplete) {
-      const cleanup = timerStore.onComplete(onComplete);
-      
-      // Store cleanup function for later use
-      onUnmounted(cleanup);
+      cleanupCallback = timerStore.onComplete(onComplete);
     }
   });
 
-  // Update store duration when duration prop changes
-  const unwatchDuration = computed(() => {
+  // Watch for duration changes and update store
+  const stopWatching = watch(currentDuration, (newDuration) => {
     setStoreDuration();
-    return currentDuration.value;
-  });
+  }, { immediate: false });
 
   onUnmounted(() => {
-    // Store handles its own cleanup
+    // Stop watching duration changes
+    stopWatching();
+    
+    // Cleanup completion callback
+    if (cleanupCallback) {
+      cleanupCallback();
+    }
   });
 
   return {

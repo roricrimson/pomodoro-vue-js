@@ -156,13 +156,27 @@ describe('useTimerStore', () => {
       expect(store.elapsedTime).toBe(newDuration);
     });
 
-    it('should not change duration while timer is running', () => {
+    it('should handle duration changes while timer is running', () => {
+      vi.useFakeTimers();
+      
       const originalDuration = store.duration;
       store.startTimer();
       
-      store.setDuration(10000);
+      // Allow some time for timer to run
+      vi.advanceTimersByTime(1000);
+      const elapsedBeforeChange = store.elapsedTime;
       
-      expect(store.duration).toBe(originalDuration);
+      const newDuration = 10000;
+      store.setDuration(newDuration);
+      
+      // Duration should change
+      expect(store.duration).toBe(newDuration);
+      
+      // Elapsed time should be adjusted proportionally
+      expect(store.elapsedTime).toBeGreaterThan(0);
+      expect(store.elapsedTime).toBeLessThanOrEqual(newDuration);
+      
+      vi.useRealTimers();
     });
 
     it('should ignore invalid durations', () => {

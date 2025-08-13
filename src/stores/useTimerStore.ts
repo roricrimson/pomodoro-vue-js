@@ -258,11 +258,27 @@ export const useTimerStore = defineStore('timer', () => {
   function setDuration(newDuration: number) {
     if (newDuration <= 0) return;
     
-    // If timer is not running, update duration and reset elapsed time
+    const oldDuration = duration.value;
+    duration.value = newDuration;
+    
+    // If timer is not running, update elapsed time to match new duration
     if (!isRunning.value) {
-      duration.value = newDuration;
       elapsedTime.value = newDuration;
       clearTimerState();
+    } else {
+      // If timer is running, we need to handle the duration change carefully
+      // Calculate the remaining percentage and apply it to the new duration
+      const remainingPercentage = elapsedTime.value / oldDuration;
+      const newElapsedTime = Math.max(newDuration * remainingPercentage, 0);
+      
+      elapsedTime.value = newElapsedTime;
+      
+      // Update start time to maintain accuracy
+      const now = Date.now();
+      startTime.value = now + newElapsedTime;
+      
+      // Save the updated state
+      saveTimerState();
     }
   }
   
