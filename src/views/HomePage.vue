@@ -1,15 +1,88 @@
+<script setup lang="ts">
+import { IonContent, IonPage, IonIcon } from "@ionic/vue";
+import { onMounted, ref } from "vue";
+import { Keyboard } from "@capacitor/keyboard";
+import { Capacitor } from "@capacitor/core";
+
+import TodoList from "@/components/TodoApp/TodoList.vue";
+import AmbientSoundPlayer from "@/components/AmbientSoundPlayer.vue";
+import CountdownTimer from "@/components/CountDownTImer.vue";
+
+import { usePomodoro } from "@/composables/usePomodoro";
+import { useAudio } from "@/composables/useAudio";
+import { settings } from "ionicons/icons";
+
+// Keyboard visibility handling for mobile platforms
+const isKeyboardVisible = ref(false);
+
+onMounted(() => {
+  if (Capacitor.getPlatform() !== "web") {
+    Keyboard.addListener("keyboardWillShow", () => {
+      isKeyboardVisible.value = true;
+    });
+
+    Keyboard.addListener("keyboardDidHide", () => {
+      isKeyboardVisible.value = false;
+    });
+  }
+});
+
+// Pomodoro logic
+const {
+  statusText,
+  currentTimerDuration,
+  progressIndicators,
+  advanceToNextSession,
+} = usePomodoro();
+
+// Audio handling
+const { playSessionCompleteSound } = useAudio();
+
+async function handleTimerComplete() {
+  try {
+    const result = await playSessionCompleteSound();
+    if (!result.success && result.error) {
+      console.warn("Session complete sound failed to play:", result.error);
+      // Could add user notification here if needed
+    }
+  } catch (error) {
+    console.warn("Error playing session complete sound:", error);
+  }
+
+  advanceToNextSession();
+}
+</script>
+
 <template>
   <ion-page>
     <ion-content :fullscreen="true">
-      <div class="flex flex-col max-w-[500px] w-full mx-auto" :class="{ 'h-full': !isKeyboardVisible }">
+      <div
+        class="flex flex-col max-w-[500px] w-full mx-auto"
+        :class="{ 'h-full': !isKeyboardVisible }"
+      >
         <div
           class="mx-5 mb-0 mt-10 p-5 rounded-3xl shadow-[2px_2px_3px_0_#989e8e] background-image"
         >
-          <p class="text-white text-2xl it text-start mb-16 font-handjet">
-            {{ statusText }}
-          </p>
+          <div class="flex justify-between items-start">
+            <p class="text-white text-2xl it text-start mb-16 font-handjet">
+              {{ statusText }}
+            </p>
+            <button
+              class="block leading-[0px] active:bg-[#d3ddce] transition-colors"
+              @click="$router.push({ name: 'Settings' })"
+            >
+              <ion-icon
+                class="text-white text-2xl"
+                :icon="settings"
+                slot="icon-only"
+              ></ion-icon>
+            </button>
+          </div>
 
-          <CountdownTimer :count-timer="currentTimerDuration" @on-countdown-end="handleTimerComplete" />
+          <CountdownTimer
+            :count-timer="currentTimerDuration"
+            @on-countdown-end="handleTimerComplete"
+          />
         </div>
 
         <!-- Progress Indicators -->
@@ -23,67 +96,13 @@
             disabled
           />
         </div>
-        
+
         <AmbientSoundPlayer />
         <TodoList />
       </div>
     </ion-content>
   </ion-page>
 </template>
-
-<script setup lang="ts">
-import { IonContent, IonPage } from "@ionic/vue";
-import { onMounted, ref } from "vue";
-import { Keyboard } from "@capacitor/keyboard";
-import { Capacitor } from "@capacitor/core";
-
-import TodoList from "@/components/TodoApp/TodoList.vue";
-import AmbientSoundPlayer from "@/components/AmbientSoundPlayer.vue";
-import CountdownTimer from "@/components/CountDownTImer.vue";
-
-import { usePomodoro } from "@/composables/usePomodoro";
-import { useAudio } from "@/composables/useAudio";
-
-// Keyboard visibility handling for mobile platforms
-const isKeyboardVisible = ref(false);
-
-onMounted(() => {
-  if (Capacitor.getPlatform() !== "web") {
-    Keyboard.addListener("keyboardWillShow", () => {
-      isKeyboardVisible.value = true;
-    });
-    
-    Keyboard.addListener("keyboardDidHide", () => {
-      isKeyboardVisible.value = false;
-    });
-  }
-});
-
-// Pomodoro logic
-const { 
-  statusText, 
-  currentTimerDuration, 
-  progressIndicators, 
-  advanceToNextSession 
-} = usePomodoro();
-
-// Audio handling
-const { playSessionCompleteSound } = useAudio();
-
-async function handleTimerComplete() {
-  try {
-    const result = await playSessionCompleteSound();
-    if (!result.success && result.error) {
-      console.warn('Session complete sound failed to play:', result.error);
-      // Could add user notification here if needed
-    }
-  } catch (error) {
-    console.warn('Error playing session complete sound:', error);
-  }
-  
-  advanceToNextSession();
-}
-</script>
 
 <style scoped>
 ion-content {
